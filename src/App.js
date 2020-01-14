@@ -1,11 +1,16 @@
 import React from 'react';
 import Home from "./pages/Home/Home";
+import {withFirebase} from "./components/Firebase";
 
 
-const App  = () => {
+
+const App  = props => {
+
+    console.log(props)
+
   return (
   <Home/>
   );
 };
 
-export default App;
+export default withFirebase(App);
