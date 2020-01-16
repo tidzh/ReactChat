@@ -18,7 +18,7 @@ class Firebase {
         this.db = app.database();
     }
 
-    users = () => this.db.ref('users');
+    users = () => this.db.ref('/users');
 
 }
 export default Firebase;

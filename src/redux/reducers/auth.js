@@ -1,4 +1,4 @@
-import {IS_AUTH_USER, SET_USER_DATA, SET_USER_INPUT} from "../../utils/const";
+import {IS_AUTH_USER, SET_USER_DATA, SET_USER_INPUT} from "../../constants/actions";
 
 const initialState = {
     email: '',
@@ -9,7 +9,7 @@ const initialState = {
 }
 
 
-const auth = (state=initialState, action) => {
+const Auth = (state=initialState, action) => {
     switch (action.type) {
         case SET_USER_INPUT:
             return {...state, ...action.value}
@@ -22,4 +22,4 @@ const auth = (state=initialState, action) => {
     }
 }
 
-export default auth;
+export default Auth;
