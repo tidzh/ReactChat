@@ -8,6 +8,7 @@ import SidebarContainer from "../../components/Sidebar/SidebarContainer";
 const Home = () => {
   return (
     <Container>
+      привет
       <Grid container spacing={3} className={style.chat}>
         <Grid item md={4}>
           <aside className={style.aside}>
