@@ -1,0 +1,16 @@
+.chat {
+  background: #ffffff;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.04204);
+  max-width: 1140px;
+  margin: 0 auto;
+}
+
+.aside {
+  width: 300px;
+  padding: 20px 0 20px 20px;
+  border-right: 1px solid #F7F7F7;
+}
+
+.messages {
+  flex: 1;
+}

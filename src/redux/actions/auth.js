@@ -1,50 +1,46 @@
-import { IS_AUTH_USER, SET_USER_DATA, SET_USER_INPUT } from "../../utils/const";
 
-export const setAuthUserData = () => ({ type: SET_USER_DATA }),
-  setAuthUserInput = value => ({ type: SET_USER_INPUT, value }),
-  isAuthUser = (flag, email, name, ava) => ({
-    type: IS_AUTH_USER,
-    flag,
-    email,
-    name,
-    ava
-  });
+import { loginAPI } from "../../utils/api";
+import { stopSubmit } from "redux-form";
+import {IS_AUTH_USER} from "../../constants/actions";
 
-export const checkToken = () => {
-  return dispatch => {
-    loginAPI
-      .checkToken()
-      .then(data => {
-        if (data.resultCode === true) {
-          dispatch(isAuthUser(true, data.email, data.name, data.ava));
-        } else {
-          dispatch(isAuthUser(false));
-        }
-      })
-      .catch(err => {
-        console.error(err);
-        dispatch(isAuthUser(false));
-      });
-  };
+export const isAuthUser = (flag, email, name, ava) => ({
+  type: IS_AUTH_USER,
+  flag,
+  email,
+  name,
+  ava
+});
+
+export const checkToken = () => async dispatch => {
+  const data = await loginAPI.checkToken();
+  if (data.resultCode === true) {
+    dispatch(isAuthUser(true, data.email, data.name, data.ava));
+  } else {
+    dispatch(isAuthUser(false));
+  }
 };
-export const authUser = (email, password) => {
-  return dispatch => {
-    loginAPI
-      .checkLogin(email, password)
-      .then(response => {
-        if (response.status === 200) {
-          dispatch(setAuthUserData());
-        }
+
+export const authUser = formData => async dispatch => {
+  try {
+    const response = await loginAPI.checkLogin(formData);
+    if (response.status === 200) {
+      dispatch(checkToken());
+    }
+  } catch (err) {
+    dispatch(
+      stopSubmit("auth", {
+        email: "Ошибка",
+        password: "Ошибка",
+        _error: err.response.data.error
       })
-      .catch(err => {
-        dispatch(stopSubmit("auth", { _error: err.response.data.error }));
-      });
-  };
+    );
+    console.error(err.response);
+  }
 };
-export const logout = () => {
-  return dispatch => {
-    loginAPI.logout().then(data => {
-      dispatch(isAuthUser(false));
-    });
-  };
+
+export const logout = () => async dispatch => {
+  const statusText = await loginAPI.logout();
+  if (statusText === "OK") {
+    dispatch(isAuthUser(false));
+  }
 };

@@ -1,6 +1,7 @@
 import app from "firebase/app";
 import "firebase/auth";
 import "firebase/database";
+import "firebase/storage";
 
 const config = {
   apiKey: "AIzaSyASnSyA5SAn-8DAwAX_-tJslVkNsC5CQuk",
@@ -16,8 +17,10 @@ class Firebase {
   constructor() {
     app.initializeApp(config);
     this.db = app.database();
+    this.storage = app.storage();
   }
 
   users = () => this.db.ref("/users");
+  storage = () => this.storage.storage()
 }
 export default Firebase;
