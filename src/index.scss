@@ -1,10 +1,41 @@
+html, body {
+  height: 100%;
+}
 body {
   margin: 0;
   font-family: 'Roboto', sans-serif;
-  background: #F4F7FD;
 }
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+#root {
+  height: 100%;
+}
+.pageWrap {
+  background: #F2F2F2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+.formParent {
+  width: 430px;
+}
+.formWrap {
+  background: #FFFFFF;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.04204);
+  border-radius: 3px;
+  padding: 45px;
+  margin-top: 50px;
+}
+.formHeader {
+  text-align: center;
+  font-weight: 300;
+}
+.formHeader__title {
+  font-size: 28px;
+  line-height: 33px;
+  color: #202002;
+  margin-bottom: 10px;
+}
+.formHeader__desc {
+  color: #8F8F80;
 }

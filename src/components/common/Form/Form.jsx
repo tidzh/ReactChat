@@ -1,13 +1,14 @@
 import React from "react";
 import FormControl from "@material-ui/core/FormControl";
 import TextField from "@material-ui/core/TextField";
-import makeStyles from "@material-ui/core/styles/makeStyles";
+import { makeStyles } from '@material-ui/core/styles';
+
 
 const helperTextStyles = makeStyles(theme => ({
   error: {
     "&.MuiFormHelperText-root.Mui-error": {
       textAlign: "right"
-    }
+    },
   }
 }));
 

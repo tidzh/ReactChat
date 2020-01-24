@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import SignUpPage from "./SignUpPage";
-import { Redirect } from "react-router-dom";
+// import { Redirect } from "react-router-dom";
 import { compose } from "redux";
 import { reduxForm } from "redux-form";
 import { authUser, checkToken } from "../../redux/actions/auth";
