@@ -1,16 +1,16 @@
 import React from "react";
-import style from "./SignUpPage.module.scss";
-import { Field } from "redux-form";
-import { email, required } from "../../utils/validators";
+import {Container} from "@material-ui/core";
 import Box from "@material-ui/core/Box";
+import {Form, RenderInput} from "../../components/common/Form/Form";
+import {Field} from "redux-form";
+import {email, required} from "../../utils/validators";
 import Typography from "@material-ui/core/Typography";
-import { Form, RenderInput } from "../../components/common/Form/Form";
-import { NavLink } from "react-router-dom";
-import { SIGN_IN } from "../../constants/routes";
-import { Container } from "@material-ui/core";
+import {NavLink} from "react-router-dom";
+import {SIGN_UP} from "../../constants/routes";
+import style from "../SignUpPage/SignUpPage.module.scss";
 
-const SignUpPage = ({ onSubmit, handleSubmit, error }) => {
-  return (
+const SignInPage = ({ onSubmit, handleSubmit, error }) => {
+  return(
     <div className="pageWrap">
       <Container>
         <Box
@@ -21,9 +21,9 @@ const SignUpPage = ({ onSubmit, handleSubmit, error }) => {
         >
           <div className="formParent">
             <div className="formHeader">
-              <div className="formHeader__title">Регистрация</div>
+              <div className="formHeader__title">Войти в аккаунт</div>
               <div className="formHeader__desc">
-                Для входа в чат, вам нужно зарегистрироваться
+                Пожалуйста, войдите в свой аккаунт
               </div>
             </div>
             <div className="formWrap">
@@ -34,23 +34,6 @@ const SignUpPage = ({ onSubmit, handleSubmit, error }) => {
                     component={RenderInput}
                     placeholder="E-Mail"
                     validate={[required, email]}
-                  />
-                </Box>
-                <Box mt={2}>
-                  <Field
-                    name="name"
-                    component={RenderInput}
-                    placeholder="Ваше имя"
-                    validate={[required]}
-                  />
-                </Box>
-                <Box mt={2}>
-                  <Field
-                    name="confirm_password"
-                    type="password"
-                    component={RenderInput}
-                    placeholder="Повторить пароль"
-                    validate={[required]}
                   />
                 </Box>
                 <Box mt={2}>
@@ -68,11 +51,11 @@ const SignUpPage = ({ onSubmit, handleSubmit, error }) => {
                   </Box>
                 )}
                 <Box mt={2}>
-                  <button className="btn btn_blue">ЗАРЕГИСТРИРОВАТЬСЯ</button>
+                  <button className="btn btn_blue">ВОЙТИ В АККАУНТ</button>
                   <Box mt={2}>
                     <Typography align="center" component="p">
-                      <NavLink to={SIGN_IN} className={style.toCome}>
-                        Войти в аккаунт
+                      <NavLink to={SIGN_UP} className={style.toCome}>
+                        Зарегистрироваться
                       </NavLink>
                     </Typography>
                   </Box>
@@ -83,6 +66,6 @@ const SignUpPage = ({ onSubmit, handleSubmit, error }) => {
         </Box>
       </Container>
     </div>
-  );
+  )
 };
-export default SignUpPage;
+export default SignInPage;

@@ -1,31 +1,28 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import SignUpPage from "./SignUpPage";
+import SignInPage from "./SignInPage";
 import { compose } from "redux";
 import { reduxForm } from "redux-form";
+import { connect } from "react-redux";
 import { authUser, checkToken } from "../../redux/actions/auth";
-import { getEmail, getIsAuth, getPassword } from "../../redux/selectors/auth";
+import { getEmail, getPassword } from "../../redux/selectors/auth";
 
-class SignUpPageContainer extends Component {
+class SignInPageContainer extends Component {
   onSubmit = formData => {
     this.props.authUser(formData);
   };
   render() {
-    return <SignUpPage {...this.props} onSubmit={this.onSubmit} />;
+    return <SignInPage {...this.props} onSubmit={this.onSubmit} />;
   }
 }
-
 const mapStateToProps = state => {
   return {
     email: getEmail(state),
-    password: getPassword(state),
-    isAuth: getIsAuth(state)
+    password: getPassword(state)
   };
 };
-
 export default compose(
   connect(mapStateToProps, { checkToken, authUser }),
   reduxForm({
-    form: "signUp"
+    form: "signIn"
   })
-)(SignUpPageContainer);
+)(SignInPageContainer);

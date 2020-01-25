@@ -1,16 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import FormControl from "@material-ui/core/FormControl";
-import TextField from "@material-ui/core/TextField";
-import { makeStyles } from '@material-ui/core/styles';
-
-
-const helperTextStyles = makeStyles(theme => ({
-  error: {
-    "&.MuiFormHelperText-root.Mui-error": {
-      textAlign: "right"
-    },
-  }
-}));
+import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline";
+import style from "./Form.module.scss";
+import Popover from "@material-ui/core/Popover";
+import { makeStyles } from "@material-ui/core/styles";
 
 export const Form = ({ onSubmit, children }) => {
   return (
@@ -20,29 +13,78 @@ export const Form = ({ onSubmit, children }) => {
   );
 };
 
-export const renderInput = ({
+const useStyles = makeStyles(theme => ({
+  popover: {
+    pointerEvents: "none"
+  },
+  paper: {
+    padding: theme.spacing(1),
+    fontSize:'14px'
+  }
+}));
+
+export const RenderInput = ({
   input,
   placeholder,
   type,
-  meta: { touched, invalid, error },
+  meta: { touched, error },
   ...props
 }) => {
-  const helperTestClasses = helperTextStyles();
+  const [anchorEl, setAnchorEl] = useState(null);
+  const classes = useStyles();
+
+  const handlePopoverOpen = event => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handlePopoverClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
 
   return (
-    <TextField
-      {...input}
-      type={type}
-      {...props}
-      error={touched && invalid}
-      helperText={touched && error}
-      variant="outlined"
-      FormHelperTextProps={{ classes: helperTestClasses }}
-      label={placeholder}
-      fullWidth
-      InputLabelProps={{
-        shrink: true
-      }}
-    />
+    <div className={style.row}>
+      <input
+        {...input}
+        type={type}
+        placeholder={placeholder}
+        className={style.input}
+        {...props}
+      />
+      {touched && error && (
+        <>
+          <ErrorOutlineIcon
+            fontSize="small"
+            className={style.alertIcon}
+            aria-owns={open ? "mouse-over-popover" : undefined}
+            aria-haspopup="true"
+            onMouseEnter={handlePopoverOpen}
+            onMouseLeave={handlePopoverClose}
+          />
+          <Popover
+            id="mouse-over-popover"
+            className={classes.popover}
+            classes={{
+              paper: classes.paper
+            }}
+            open={open}
+            anchorEl={anchorEl}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "left"
+            }}
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "left"
+            }}
+            onClose={handlePopoverClose}
+            disableRestoreFocus
+          >
+            {error}
+          </Popover>
+        </>
+      )}
+    </div>
   );
 };

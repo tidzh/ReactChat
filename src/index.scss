@@ -39,3 +39,22 @@ body {
 .formHeader__desc {
   color: #8F8F80;
 }
+.btn {
+  width: 100%;
+  border: none;
+  background: #4CA5FF;
+  border-radius: 4px;
+  padding: 20px 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  &_blue {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+    &:hover {
+      background-color: #0069d9;
+      border-color: #0062cc;
+    }
+  }
+}
