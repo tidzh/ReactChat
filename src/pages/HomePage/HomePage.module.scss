@@ -1,3 +1,7 @@
+.root {
+    background: #F4F7FD;
+  height: 100%;
+}
 .chat {
   background: #ffffff;
   box-shadow: 0 0 25px rgba(0, 0, 0, 0.04204);
@@ -7,7 +11,7 @@
 
 .aside {
   width: 300px;
-  padding: 20px 0 20px 20px;
+  padding: 20px 0 20px 0;
   border-right: 1px solid #F7F7F7;
 }
 

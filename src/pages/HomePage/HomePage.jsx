@@ -7,16 +7,18 @@ import Box from "@material-ui/core/Box";
 
 const HomePage = () => {
   return (
-    <Container>
-      <Box display="flex" className={style.chat}>
-        <aside className={style.aside}>
-          <SidebarContainer />
-        </aside>
+    <div className={style.root}>
+      <Container>
+        <Box display="flex" className={style.chat}>
+          <aside className={style.aside}>
+            <SidebarContainer />
+          </aside>
           <div className={style.messages}>
             <Dialog />
           </div>
-      </Box>
-    </Container>
+        </Box>
+      </Container>
+    </div>
   );
 };
 export default HomePage;

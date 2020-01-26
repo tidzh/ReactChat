@@ -1,14 +1,38 @@
+.default {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  height: 100%;
+  color: #d5dfe9;
+}
+
+.defaultImg {
+  font-size: 100px !important;
+}
+
+.defaultText {
+  color: #929eb0;
+}
+
+.stub {
+  max-width: 220px;
+  font-size: 14px;
+}
+
 .header {
   text-align: center;
   border-bottom: 1px solid #F7F7F7;
   padding: 11px 10px;
 }
+
 .userName {
   font-size: 14px;
   font-weight: 500;
   color: #202020;
   margin-bottom: 5px;
 }
+
 .status {
   font-size: 14px;
   color: #A6A6A6;

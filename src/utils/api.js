@@ -1,20 +1,12 @@
-import * as axios from "axios";
+import firebase from "../components/Firebase/Firebase";
 
-const instance = axios.create({
-  baseURL: "/api",
-  withCredentials: true
-});
+const db = firebase.firestore();
 
-export const loginAPI = {
-  checkToken() {
-    return instance.get(`/checkToken`).then(response => response.data);
-  },
-  checkLogin(email, password) {
-    return instance
-      .post(`/auth`, { email, password })
-      .then(response => response);
-  },
-  logout() {
-    return instance.get(`/logout`).then(response => response.data);
+export const usersAPI = {
+  getUsers() {
+    return db
+      .collection("users")
+      .get()
+      .then(querySnapshot => querySnapshot.docs.map(doc => doc.data()));
   }
 };
