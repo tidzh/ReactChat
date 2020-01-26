@@ -1,13 +1,20 @@
 .item {
   padding: 16px 20px;
   cursor: pointer;
+
   &:hover {
     background: #F3F7FF;
   }
 }
+
+.link {
+  text-decoration: none;
+}
+
 .info {
   margin-left: 10px;
 }
+
 .name {
   font-weight: 500;
   font-size: 14px;
@@ -17,11 +24,13 @@
   display: flex;
   align-items: center;
 }
+
 .text__preview {
   font-size: 14px;
   color: #A6A6A6;
   font-weight: 300;
 }
+
 .verif {
   color: #0C8FE4;
   margin-left: 5px;

@@ -1,10 +1,10 @@
 import React from "react";
 import style from "./HomePage.module.scss";
-import Dialog from "../../components/Dialog/Dialog";
 import Container from "@material-ui/core/Container";
 import SidebarContainer from "../../components/Sidebar/SidebarContainer";
 import Box from "@material-ui/core/Box";
 import Search from "../../components/Search/Search";
+import DialogContainer from "../../components/Dialog/DialogContainer";
 
 const HomePage = () => {
   return (
@@ -16,7 +16,7 @@ const HomePage = () => {
             <SidebarContainer />
           </aside>
           <div className={style.messages}>
-            <Dialog />
+            <DialogContainer />
           </div>
         </Box>
       </Container>

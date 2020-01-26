@@ -5,3 +5,4 @@ export const IS_AUTH_USER = "IS_AUTH_USER";
 // USERS LIST
 
 export const SET_USERS = "SET_USERS";
+export const SET_USER = "SET_USER";
