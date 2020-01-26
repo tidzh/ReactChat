@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
   },
   paper: {
     padding: theme.spacing(1),
-    fontSize:'14px'
+    fontSize: "14px"
   }
 }));
 
@@ -87,4 +87,7 @@ export const RenderInput = ({
       )}
     </div>
   );
+};
+export const Input = ({placeholder, className}) => {
+  return <input type="text" placeholder={placeholder} className={className}/>
 };

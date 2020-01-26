@@ -1,0 +1,22 @@
+.root {
+  padding: 0 20px;
+  margin-bottom: 15px;
+}
+.wrap {
+  position: relative;
+}
+.input {
+  width: 100%;
+  background: #F7F8F9;
+  border-radius: 2px;
+  border: none;
+  font-size: 14px;
+  padding: 11px 11px 11px 30px;
+}
+.icon {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  color: #848585;
+  margin-top: -10px;
+}
