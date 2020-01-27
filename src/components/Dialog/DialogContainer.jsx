@@ -1,44 +1,30 @@
 import React, { Component } from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  withRouter
-} from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { getIsFetching, getUser } from "../../redux/selectors/user";
-import { Dialog, DialogDefault } from "./Dialog";
-import { DIALOG } from "../../constants/routes";
+import { Dialog } from "./Dialog";
 import { compose } from "redux";
 import { getUserRequest } from "../../redux/actions/users";
+import { ProgressCircular } from "../common/Progress/Progress";
+import Chat from "../../pages/layout/Chat";
 
 class DialogContainer extends Component {
   componentDidMount() {
-    const { location } = this.props;
-    if (location.pathname !== "/") {
-      this.props.getUserRequest(location.pathname.slice(1));
-    }
+    this.props.getUserRequest(this.props.match.params.url);
   }
-  
+
   componentDidUpdate(prevProps) {
-	const { location } = this.props;
-    console.log(prevProps)
-	if (prevProps.location.pathname.slice(1) !== location.pathname.slice(1)) {
-	  this.props.getUserRequest(location.pathname.slice(1));
-	}
+    if (this.props.match.params.url !== prevProps.match.params.url) {
+      this.props.getUserRequest(this.props.match.params.url);
+    }
   }
 
   render() {
-    const { user } = this.props;
+    const { user, isFetching } = this.props;
     return (
-      <Router>
-        <Switch>
-          <Route exact path="/" component={DialogDefault} />
-          <Route exact path={DIALOG}>
-            <Dialog user={user} />
-          </Route>
-        </Switch>
-      </Router>
+      <Chat>
+        <Dialog user={user} isFetching={isFetching} />
+      </Chat>
     );
   }
 }

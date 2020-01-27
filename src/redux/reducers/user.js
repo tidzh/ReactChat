@@ -1,9 +1,9 @@
-import {SET_USER} from "../../constants/actions";
+import { IS_FETCHING, SET_USER } from "../../constants/actions";
 
 const initialState = {
   user: [],
-  test:'',
-  isFetching: true
+  test: "",
+  isFetching: false
 };
 
 const User = (state = initialState, action) => {
@@ -11,9 +11,10 @@ const User = (state = initialState, action) => {
     case SET_USER:
       return {
         ...state,
-        user: action.data,
-        isFetching: action.isFetching
+        user: action.data
       };
+    case IS_FETCHING:
+      return { ...state, isFetching: action.fetching };
     default:
       return { ...state };
   }

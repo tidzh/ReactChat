@@ -31,6 +31,8 @@
   font-weight: 500;
   color: #202020;
   margin-bottom: 5px;
+  display: inline-block;
+  position: relative;
 }
 
 .status {
@@ -46,4 +48,14 @@
   display: inline-block;
   vertical-align: middle;
   margin-right: 3px;
+}
+.badgeOnline {
+  background: #00C980;
+}
+.verif {
+  color: #0C8FE4;
+  margin-left: 5px;
+  position: absolute;
+  top: 50%;
+  margin-top: -11px;
 }

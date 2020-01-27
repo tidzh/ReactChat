@@ -6,3 +6,7 @@ export const IS_AUTH_USER = "IS_AUTH_USER";
 
 export const SET_USERS = "SET_USERS";
 export const SET_USER = "SET_USER";
+
+// HELPERS
+
+export const IS_FETCHING = "IS_FETCHING";

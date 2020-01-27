@@ -2,14 +2,28 @@ import React from "react";
 import style from "./Dialog.module.scss";
 import ChatIcon from "@material-ui/icons/Chat";
 import Box from "@material-ui/core/Box";
-export const Dialog = ({ user: { name, status}}) => {
+import classnames from "classnames";
+import CheckIcon from "@material-ui/icons/Check";
+import {ProgressCircular} from "../common/Progress/Progress";
+export const Dialog = ({ user: { name, status, verif}, isFetching }) => {
+  console.log(isFetching)
+  if (isFetching) return <ProgressCircular />;
   return (
     <>
       <div className={style.header}>
-        <div className={style.userName}>{name}</div>
+        <div className={style.userName}>
+          <span>{name}</span>
+          {verif && (
+            <span className={style.verif}>
+              <CheckIcon fontSize="small" />
+            </span>
+          )}
+        </div>
         <div className={style.status}>
-          <span className={style.badge}></span>
-            {status ? 'онлайн' : 'офлайн'}
+          <span
+            className={classnames(style.badge, status && style.badgeOnline)}
+          ></span>
+          {status ? "онлайн" : "офлайн"}
         </div>
       </div>
     </>

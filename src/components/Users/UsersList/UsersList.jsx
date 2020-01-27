@@ -12,19 +12,18 @@ const UsersListItem = ({ user: { id, ava, name, status, verif }, onClick }) => {
         display="flex"
         alignItems="center"
         className={style.link}
+        activeClassName={style.linkActive}
         component={NavLink}
-        to={`/${id}`}
+        to={`/dialog/${id}`}
       >
         {status ? <BadgeAvatars src={ava} /> : <ImageAvatars />}
         <div className={style.info}>
           <div className={style.name}>
             <span>{name}</span>
-            {verif ? (
+            {verif && (
               <span className={style.verif}>
                 <CheckIcon fontSize="small" />
               </span>
-            ) : (
-              ""
             )}
           </div>
           <div className={style.text__preview}>Мы все свидетельствуем …</div>
@@ -34,9 +33,7 @@ const UsersListItem = ({ user: { id, ava, name, status, verif }, onClick }) => {
   );
 };
 
-const UsersList = ({ usersList}) => {
-  return usersList.map(user => (
-    <UsersListItem key={user.id} user={user} />
-  ));
+const UsersList = ({ usersList }) => {
+  return usersList.map(user => <UsersListItem key={user.id} user={user} />);
 };
 export default UsersList;

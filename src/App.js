@@ -5,11 +5,13 @@ import "./index.scss";
 import * as ROUTES from "./constants/routes";
 import SignInPageContainer from "./pages/SignInPage/SignInPageContainer";
 import SignUpPageContainer from "./pages/SignUpPage/SignUpPageContainer";
+import DialogContainer from "./components/Dialog/DialogContainer";
 
 const App = () => (
   <Router>
     <Switch>
-      <Route path={ROUTES.HOME} component={HomePage} />
+      <Route exact path={ROUTES.HOME} component={HomePage} />
+      <Route path={ROUTES.DIALOG} component={DialogContainer} />
       <Route path={ROUTES.SIGN_UP} component={SignUpPageContainer} />
       <Route path={ROUTES.SIGN_IN} component={SignInPageContainer} />
     </Switch>

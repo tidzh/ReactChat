@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import UsersList from "./UsersList";
 import { connect } from "react-redux";
 import { getIsFetching, getUsers } from "../../../redux/selectors/users";
-import { getUserRequest, getUsersRequest } from "../../../redux/actions/users";
+import { getUsersRequest } from "../../../redux/actions/users";
 import { ProgressCircular } from "../../common/Progress/Progress";
 
 class UsersListContainer extends Component {
@@ -22,6 +22,6 @@ const mapStateToProps = state => {
     isFetching: getIsFetching(state)
   };
 };
-export default connect(mapStateToProps, { getUsersRequest})(
+export default connect(mapStateToProps, { getUsersRequest })(
   UsersListContainer
 );

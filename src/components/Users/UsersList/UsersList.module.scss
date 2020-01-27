@@ -1,5 +1,4 @@
 .item {
-  padding: 16px 20px;
   cursor: pointer;
 
   &:hover {
@@ -9,6 +8,11 @@
 
 .link {
   text-decoration: none;
+  padding: 16px 20px;
+}
+
+.linkActive {
+  background: #F3F7FF;
 }
 
 .info {
