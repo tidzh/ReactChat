@@ -1,7 +1,7 @@
 import React from "react";
 import style from "./SignUpPage.module.scss";
 import { Field } from "redux-form";
-import { email, required } from "../../utils/validators";
+import {confirmPassword, email, required} from "../../utils/validators";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import { Form, RenderInput } from "../../components/common/Form/Form";
@@ -46,20 +46,20 @@ const SignUpPage = ({ onSubmit, handleSubmit, error }) => {
                 </Box>
                 <Box mt={2}>
                   <Field
-                    name="confirm_password"
-                    type="password"
-                    component={RenderInput}
-                    placeholder="Повторить пароль"
-                    validate={[required]}
-                  />
-                </Box>
-                <Box mt={2}>
-                  <Field
                     name="password"
                     type="password"
                     component={RenderInput}
                     placeholder="Пароль"
-                    validate={[required]}
+                    validate={[required, confirmPassword]}
+                  />
+                </Box>
+                <Box mt={2}>
+                  <Field
+                    name="confirm_password"
+                    type="password"
+                    component={RenderInput}
+                    placeholder="Повторить пароль"
+                    validate={[required, confirmPassword]}
                   />
                 </Box>
                 {error && (

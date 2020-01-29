@@ -4,9 +4,8 @@ import ChatIcon from "@material-ui/icons/Chat";
 import Box from "@material-ui/core/Box";
 import classnames from "classnames";
 import CheckIcon from "@material-ui/icons/Check";
-import {ProgressCircular} from "../common/Progress/Progress";
-export const Dialog = ({ user: { name, status, verif}, isFetching }) => {
-  console.log(isFetching)
+import { ProgressCircular } from "../common/Progress/Progress";
+export const Dialog = ({ user: { name, status, verif }, isFetching }) => {
   if (isFetching) return <ProgressCircular />;
   return (
     <>

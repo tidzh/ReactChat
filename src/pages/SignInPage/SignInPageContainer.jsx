@@ -3,12 +3,17 @@ import SignInPage from "./SignInPage";
 import { compose } from "redux";
 import { reduxForm } from "redux-form";
 import { connect } from "react-redux";
-import { authUser, checkToken } from "../../redux/actions/auth";
 import { getEmail, getPassword } from "../../redux/selectors/auth";
+import {signInRequest} from "../../redux/actions/auth";
+
 
 class SignInPageContainer extends Component {
+  componentDidMount() {
+    // this.props.signInRequest({email:'kondakov8@gmail.com', password:'Kondakov_90'})
+  
+  }
   onSubmit = formData => {
-    this.props.authUser(formData);
+    this.props.signInUser(formData);
   };
   render() {
     return <SignInPage {...this.props} onSubmit={this.onSubmit} />;
@@ -21,7 +26,7 @@ const mapStateToProps = state => {
   };
 };
 export default compose(
-  connect(mapStateToProps, { checkToken, authUser }),
+  connect(mapStateToProps, {signInRequest}),
   reduxForm({
     form: "signIn"
   })

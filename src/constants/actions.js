@@ -10,3 +10,8 @@ export const SET_USER = "SET_USER";
 // HELPERS
 
 export const IS_FETCHING = "IS_FETCHING";
+
+// ALERTS
+export const SUCCESS = "SUCCESS";
+export const ERROR = "ERROR";
+export const CLEAR = "CLEAR";

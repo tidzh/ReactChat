@@ -5,7 +5,6 @@ import { getIsFetching, getUser } from "../../redux/selectors/user";
 import { Dialog } from "./Dialog";
 import { compose } from "redux";
 import { getUserRequest } from "../../redux/actions/users";
-import { ProgressCircular } from "../common/Progress/Progress";
 import Chat from "../../pages/layout/Chat";
 
 class DialogContainer extends Component {

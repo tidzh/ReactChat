@@ -9,3 +9,6 @@ export const email = value =>
   value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
     ? "Неверный адрес электронной почты"
     : undefined;
+
+export const confirmPassword = (input, allInputs) =>
+  input === allInputs.password ? undefined : "Пароли не совпадает";
