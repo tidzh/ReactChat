@@ -6,6 +6,7 @@ import * as ROUTES from "./constants/routes";
 import SignInPageContainer from "./pages/SignInPage/SignInPageContainer";
 import SignUpPageContainer from "./pages/SignUpPage/SignUpPageContainer";
 import DialogContainer from "./components/Dialog/DialogContainer";
+import ConfirmPageContainer from "./pages/ConfirmPage/ConfirmPageContainer";
 
 const App = () => (
   <Router>
@@ -14,6 +15,7 @@ const App = () => (
       <Route path={ROUTES.DIALOG} component={DialogContainer} />
       <Route path={ROUTES.SIGN_UP} component={SignUpPageContainer} />
       <Route path={ROUTES.SIGN_IN} component={SignInPageContainer} />
+      <Route path={ROUTES.CONFIRM} component={ConfirmPageContainer} />
     </Switch>
   </Router>
 );

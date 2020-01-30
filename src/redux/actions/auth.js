@@ -4,7 +4,8 @@ import { stopSubmit } from "redux-form";
 
 export const registerRequest = formData => async dispatch => {
   try {
-    const data = await authAPI.registerUser(formData);
+    await authAPI.registerUser(formData);
+    dispatch(reset("signUp"));
   } catch (error) {
     dispatch(
       stopSubmit("signUp", {
@@ -14,10 +15,18 @@ export const registerRequest = formData => async dispatch => {
     );
     console.log(error.message);
   }
-
-  // dispatch(reset("signUp"));
 };
 export const signInRequest = formData => async dispatch => {
-  authAPI.signInUser(formData);
-  dispatch(reset("signIn"));
+  try {
+    const data = await authAPI.signInUser(formData);
+    console.log(data.user);
+  } catch (error) {
+    dispatch(
+      stopSubmit("signIn", {
+        email: "Ошибка",
+        _error: "Пользователь не найден. Возможно, пользователь был удален."
+      })
+    );
+  }
+  // dispatch(reset("signIn"));
 };

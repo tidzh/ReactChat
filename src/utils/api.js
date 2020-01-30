@@ -28,31 +28,48 @@ export const usersAPI = {
 export const authAPI = {
   registerUser({ email, password, name }) {
     return new Promise((resolve, reject) => {
-      auth.createUserWithEmailAndPassword(email, password).then(
-        response => {
+      auth
+        .createUserWithEmailAndPassword(email, password)
+        .then(response => {
           db.collection("users")
             .doc(response.user.uid)
             .set({
-              name: name,
-              ava: "",
+              displayName: name,
+              email: email,
+              photoURL: "",
               status: false,
-              verif: false
+              emailVerified: false
             });
-          resolve(response);
+        })
+        .then(
+          response => {
+            auth.currentUser.sendEmailVerification({
+              url: process.env.REACT_APP_CONFIRMATION_EMAIL_REDIRECT,
+            })
+            resolve(response);
+          },
+          err => reject(err)
+        );
+    });
+  },
+  signInUser({ email, password }) {
+    return new Promise((resolve, reject) => {
+      auth.signInWithEmailAndPassword(email, password).then(
+        user => {
+          resolve(user);
         },
         err => reject(err)
       );
     });
   },
-  signInUser({ email, password }) {
-    auth
-      .signInWithEmailAndPassword(email, password)
-      .then(user => {
-        console.log(user);
-        return user;
-      })
-      .catch(error => {
-        console.log(error);
-      });
+  checkToken() {
+    auth.onAuthStateChanged(authUser => {
+      console.log(authUser);
+    });
+  },
+  emailVerification() {
+    console.log(auth.currentUser)
+   
+    auth.currentUser.sendEmailVerification()
   }
 };

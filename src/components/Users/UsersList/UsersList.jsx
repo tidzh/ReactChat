@@ -5,7 +5,7 @@ import CheckIcon from "@material-ui/icons/Check";
 import { BadgeAvatars, ImageAvatars } from "../../common/Avatars/Avatars";
 import { NavLink } from "react-router-dom";
 
-const UsersListItem = ({ user: { id, ava, name, status, verif }, onClick }) => {
+const UsersListItem = ({ user: { id, ava, displayName, status, verif }, onClick }) => {
   return (
     <Box className={style.item}>
       <Box
@@ -19,7 +19,7 @@ const UsersListItem = ({ user: { id, ava, name, status, verif }, onClick }) => {
         {status ? <BadgeAvatars src={ava} /> : <ImageAvatars />}
         <div className={style.info}>
           <div className={style.name}>
-            <span>{name}</span>
+            <span>{displayName}</span>
             {verif && (
               <span className={style.verif}>
                 <CheckIcon fontSize="small" />
