@@ -1,16 +1,24 @@
 import { authAPI } from "../../utils/api";
 import { reset } from "redux-form";
 import { stopSubmit } from "redux-form";
+import { REGISTER_USER } from "../../constants/actions";
+import { isFetching } from "./actions-helpers";
+
+export const registerUser = data => ({ type: REGISTER_USER, data });
 
 export const registerRequest = formData => async dispatch => {
   try {
-    await authAPI.registerUser(formData);
+    dispatch(isFetching(true));
+    const data = await authAPI.registerUser(formData);
+    dispatch(registerUser(data));
     dispatch(reset("signUp"));
+    dispatch(isFetching(false));
   } catch (error) {
+    dispatch(isFetching(false));
     dispatch(
       stopSubmit("signUp", {
-        email: "Пользователь с такие email уже зарегистрирован",
-        _error: error.message
+        email: "Ошибка",
+        _error: "Пользователь с такие email уже зарегистрирован"
       })
     );
     console.log(error.message);
@@ -28,5 +36,5 @@ export const signInRequest = formData => async dispatch => {
       })
     );
   }
-  // dispatch(reset("signIn"));
+  dispatch(reset("signIn"));
 };

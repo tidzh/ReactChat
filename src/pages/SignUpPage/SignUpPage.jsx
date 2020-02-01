@@ -1,15 +1,17 @@
 import React from "react";
 import style from "./SignUpPage.module.scss";
 import { Field } from "redux-form";
-import {confirmPassword, email, required} from "../../utils/validators";
+import { confirmPassword, email, required } from "../../utils/validators";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import { Form, RenderInput } from "../../components/common/Form/Form";
 import { NavLink } from "react-router-dom";
 import { SIGN_IN } from "../../constants/routes";
 import { Container } from "@material-ui/core";
+import classes from 'classnames'
+import { ProgressCircular } from "../../components/common/Progress/Progress";
 
-const SignUpPage = ({ onSubmit, handleSubmit, error }) => {
+const SignUpPage = ({ onSubmit, handleSubmit, error, isFetching }) => {
   return (
     <div className="pageWrap">
       <Container>
@@ -27,7 +29,8 @@ const SignUpPage = ({ onSubmit, handleSubmit, error }) => {
               </div>
             </div>
             <div className="formWrap">
-              <Form onSubmit={handleSubmit(onSubmit)}>
+              <Form onSubmit={handleSubmit(onSubmit)} className={classes({ [`${style.fetching}`]: isFetching })}>
+                {isFetching && <ProgressCircular className={style.progress}/>}
                 <Box mt={2}>
                   <Field
                     name="email"
@@ -69,15 +72,15 @@ const SignUpPage = ({ onSubmit, handleSubmit, error }) => {
                 )}
                 <Box mt={2}>
                   <button className="btn btn_blue">ЗАРЕГИСТРИРОВАТЬСЯ</button>
-                  <Box mt={2}>
-                    <Typography align="center" component="p">
-                      <NavLink to={SIGN_IN} className={style.toCome}>
-                        Войти в аккаунт
-                      </NavLink>
-                    </Typography>
-                  </Box>
                 </Box>
               </Form>
+              <Box mt={2}>
+                <Typography align="center" component="p">
+                  <NavLink to={SIGN_IN} className={style.toCome}>
+                    Войти в аккаунт
+                  </NavLink>
+                </Typography>
+              </Box>
             </div>
           </div>
         </Box>

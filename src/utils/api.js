@@ -40,13 +40,14 @@ export const authAPI = {
               status: false,
               emailVerified: false
             });
+          return response.user;
         })
         .then(
-          response => {
+          user => {
             auth.currentUser.sendEmailVerification({
               url: process.env.REACT_APP_CONFIRMATION_EMAIL_REDIRECT,
-            })
-            resolve(response);
+            });
+            resolve(user);
           },
           err => reject(err)
         );

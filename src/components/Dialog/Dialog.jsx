@@ -5,14 +5,14 @@ import Box from "@material-ui/core/Box";
 import classnames from "classnames";
 import CheckIcon from "@material-ui/icons/Check";
 import { ProgressCircular } from "../common/Progress/Progress";
-export const Dialog = ({ user: { name, status, verif }, isFetching }) => {
+export const Dialog = ({ user: { displayName, status, emailVerified }, isFetching }) => {
   if (isFetching) return <ProgressCircular />;
   return (
     <>
       <div className={style.header}>
         <div className={style.userName}>
-          <span>{name}</span>
-          {verif && (
+          <span>{displayName}</span>
+          {emailVerified && (
             <span className={style.verif}>
               <CheckIcon fontSize="small" />
             </span>

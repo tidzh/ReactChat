@@ -4,7 +4,7 @@ import Box from "@material-ui/core/Box";
 import style from './ConfirmPage.module.scss'
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 
-const ConfirmPage = () => {
+const ConfirmPage = ({email}) => {
   return (
     <div className="pageWrap">
       <Container>
@@ -25,7 +25,7 @@ const ConfirmPage = () => {
               <div className={style.confirm}>
                 <InfoOutlinedIcon className={style.icon}/>
                 <div className={style.confirmTitle}>Подтвердите свой аккаунт</div>
-                <div className={style.text}>На Вашу почту отправлено письмо с ссылкой на подтверждение аккаунта.</div>
+                <div className={style.text}>На Вашу почту ({email}) отправлено письмо с ссылкой на подтверждение аккаунта.</div>
               </div>
             </div>
           </div>

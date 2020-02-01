@@ -1,5 +1,6 @@
 import { usersAPI } from "../../utils/api";
-import { IS_FETCHING, SET_USER, SET_USERS } from "../../constants/actions";
+import { SET_USER, SET_USERS } from "../../constants/actions";
+import {isFetching} from "./actions-helpers";
 
 export const setUsers = (data, isFetching) => ({
   type: SET_USERS,
@@ -10,10 +11,6 @@ export const setUser = (data, isFetching) => ({
   type: SET_USER,
   data,
   isFetching
-});
-export const isFetching = fetching => ({
-  type: IS_FETCHING,
-  fetching
 });
 
 export const getUsersRequest = () => async dispatch => {

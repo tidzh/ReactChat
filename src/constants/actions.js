@@ -11,7 +11,5 @@ export const SET_USER = "SET_USER";
 
 export const IS_FETCHING = "IS_FETCHING";
 
-// ALERTS
-export const SUCCESS = "SUCCESS";
-export const ERROR = "ERROR";
-export const CLEAR = "CLEAR";
+// AUTH
+export const REGISTER_USER = "REGISTER_USER";

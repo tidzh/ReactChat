@@ -5,9 +5,9 @@ import style from "./Form.module.scss";
 import Popover from "@material-ui/core/Popover";
 import { makeStyles } from "@material-ui/core/styles";
 
-export const Form = ({ onSubmit, children }) => {
+export const Form = ({ onSubmit, children, className }) => {
   return (
-    <form onSubmit={onSubmit}>
+    <form className={className} onSubmit={onSubmit}>
       <FormControl fullWidth>{children}</FormControl>
     </form>
   );
