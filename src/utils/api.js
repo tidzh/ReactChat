@@ -45,7 +45,7 @@ export const authAPI = {
         .then(
           user => {
             auth.currentUser.sendEmailVerification({
-              url: process.env.REACT_APP_CONFIRMATION_EMAIL_REDIRECT,
+              url: process.env.REACT_APP_CONFIRMATION_EMAIL_REDIRECT
             });
             resolve(user);
           },
@@ -55,22 +55,22 @@ export const authAPI = {
   },
   signInUser({ email, password }) {
     return new Promise((resolve, reject) => {
-      auth.signInWithEmailAndPassword(email, password).then(
-        user => {
-          resolve(user);
-        },
-        err => reject(err)
-      );
+      auth
+        .signInWithEmailAndPassword(email, password)
+        .then(response => {
+          return response.user;
+        })
+        .then(
+          user => {
+            resolve(user);
+          },
+          err => reject(err)
+        );
     });
   },
   checkToken() {
     auth.onAuthStateChanged(authUser => {
       console.log(authUser);
     });
-  },
-  emailVerification() {
-    console.log(auth.currentUser)
-   
-    auth.currentUser.sendEmailVerification()
   }
 };

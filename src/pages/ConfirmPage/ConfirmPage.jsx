@@ -1,10 +1,10 @@
 import React from "react";
 import { Container } from "@material-ui/core";
 import Box from "@material-ui/core/Box";
-import style from './ConfirmPage.module.scss'
-import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
+import style from "./ConfirmPage.module.scss";
+import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 
-const ConfirmPage = ({email}) => {
+const ConfirmPage = ({ email }) => {
   return (
     <div className="pageWrap">
       <Container>
@@ -23,9 +23,14 @@ const ConfirmPage = ({email}) => {
             </div>
             <div className="formWrap">
               <div className={style.confirm}>
-                <InfoOutlinedIcon className={style.icon}/>
-                <div className={style.confirmTitle}>Подтвердите свой аккаунт</div>
-                <div className={style.text}>На Вашу почту ({email}) отправлено письмо с ссылкой на подтверждение аккаунта.</div>
+                <InfoOutlinedIcon className={style.icon} />
+                <div className={style.confirmTitle}>
+                  Подтвердите свой аккаунт
+                </div>
+                <div className={style.text}>
+                  На Вашу почту ({email}) отправлено письмо с ссылкой на
+                  подтверждение аккаунта.
+                </div>
               </div>
             </div>
           </div>

@@ -10,7 +10,7 @@ const Auth = (state = initialState, action) => {
   switch (action.type) {
     case REGISTER_USER:
       const { email, uid } = action.data;
-      
+
       return { ...state, user: { email, uid }, isRegistered: true };
     default:
       return state;

@@ -88,6 +88,6 @@ export const RenderInput = ({
     </div>
   );
 };
-export const Input = ({placeholder, className}) => {
-  return <input type="text" placeholder={placeholder} className={className}/>
+export const Input = ({ placeholder, className }) => {
+  return <input type="text" placeholder={placeholder} className={className} />;
 };

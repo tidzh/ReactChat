@@ -21,20 +21,23 @@ export const registerRequest = formData => async dispatch => {
         _error: "Пользователь с такие email уже зарегистрирован"
       })
     );
-    console.log(error.message);
+    console.error(error.message);
   }
 };
 export const signInRequest = formData => async dispatch => {
   try {
-    const data = await authAPI.signInUser(formData);
-    console.log(data.user);
+    dispatch(isFetching(true));
+    await authAPI.signInUser(formData);
+    dispatch(reset("signIn"));
+    dispatch(isFetching(false));
   } catch (error) {
+    dispatch(isFetching(false));
     dispatch(
       stopSubmit("signIn", {
         email: "Ошибка",
-        _error: "Пользователь не найден. Возможно, пользователь был удален."
+        _error: "Пользователь не найден. Проверьте логин и пароль."
       })
     );
+    console.error(error.message);
   }
-  dispatch(reset("signIn"));
 };

@@ -1,13 +1,15 @@
-html, body {
+html,
+body {
   height: 100%;
 }
 
 body {
   margin: 0;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
-*, :after {
+*,
+:after {
   box-sizing: border-box;
 }
 
@@ -20,7 +22,7 @@ body {
 }
 
 .pageWrap {
-  background: #F2F2F2;
+  background: #f2f2f2;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -33,7 +35,7 @@ body {
 }
 
 .formWrap {
-  background: #FFFFFF;
+  background: #ffffff;
   box-shadow: 0 0 25px rgba(0, 0, 0, 0.04204);
   border-radius: 3px;
   padding: 45px;
@@ -45,6 +47,39 @@ body {
   font-weight: 300;
 }
 
+.formFetching {
+  position: relative;
+
+  &:after {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    content: "";
+    opacity: 0.5;
+    left: 0;
+    background: #ffffff;
+  }
+}
+
+.formToCome {
+  color: #adadad;
+  font-size: 16px;
+  font-weight: 300;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.formSpinner {
+  position: absolute;
+  z-index: 3;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0 !important;
+}
+
 .formHeader__title {
   font-size: 28px;
   line-height: 33px;
@@ -53,18 +88,19 @@ body {
 }
 
 .formHeader__desc {
-  color: #8F8F80;
+  color: #8f8f80;
 }
 
 .btn {
   width: 100%;
   border: none;
-  background: #4CA5FF;
+  background: #4ca5ff;
   border-radius: 4px;
   padding: 20px 10px;
   font-size: 16px;
   cursor: pointer;
-  transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+  border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 
   &_blue {
     color: #fff;

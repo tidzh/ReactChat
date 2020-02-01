@@ -1,6 +1,6 @@
 import { usersAPI } from "../../utils/api";
 import { SET_USER, SET_USERS } from "../../constants/actions";
-import {isFetching} from "./actions-helpers";
+import { isFetching } from "./actions-helpers";
 
 export const setUsers = (data, isFetching) => ({
   type: SET_USERS,

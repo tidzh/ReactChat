@@ -1,5 +1,4 @@
 import React from "react";
-import style from "./SignUpPage.module.scss";
 import { Field } from "redux-form";
 import { confirmPassword, email, required } from "../../utils/validators";
 import Box from "@material-ui/core/Box";
@@ -8,10 +7,10 @@ import { Form, RenderInput } from "../../components/common/Form/Form";
 import { NavLink } from "react-router-dom";
 import { SIGN_IN } from "../../constants/routes";
 import { Container } from "@material-ui/core";
-import classes from 'classnames'
+import classes from "classnames";
 import { ProgressCircular } from "../../components/common/Progress/Progress";
 
-const SignUpPage = ({ onSubmit, handleSubmit, error, isFetching }) => {
+const SignUpPage = ({ isFetching, onSubmit, handleSubmit, error }) => {
   return (
     <div className="pageWrap">
       <Container>
@@ -29,8 +28,11 @@ const SignUpPage = ({ onSubmit, handleSubmit, error, isFetching }) => {
               </div>
             </div>
             <div className="formWrap">
-              <Form onSubmit={handleSubmit(onSubmit)} className={classes({ [`${style.fetching}`]: isFetching })}>
-                {isFetching && <ProgressCircular className={style.progress}/>}
+              <Form
+                onSubmit={handleSubmit(onSubmit)}
+                className={classes({ 'formFetching': isFetching })}
+              >
+                {isFetching && <ProgressCircular className='formSpinner' />}
                 <Box mt={2}>
                   <Field
                     name="email"
@@ -76,7 +78,7 @@ const SignUpPage = ({ onSubmit, handleSubmit, error, isFetching }) => {
               </Form>
               <Box mt={2}>
                 <Typography align="center" component="p">
-                  <NavLink to={SIGN_IN} className={style.toCome}>
+                  <NavLink to={SIGN_IN} className='formToCome'>
                     Войти в аккаунт
                   </NavLink>
                 </Typography>

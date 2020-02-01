@@ -9,8 +9,8 @@ export const ProgressLine = () => {
 
 export const ProgressCircular = props => {
   return (
-	<Box display="flex" justifyContent="center" mt={5} mb={5} {...props}>
-	  <CircularProgress />
-	</Box>
+    <Box display="flex" justifyContent="center" mt={5} mb={5} {...props}>
+      <CircularProgress />
+    </Box>
   );
 };
