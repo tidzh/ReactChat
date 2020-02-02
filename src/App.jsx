@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Switch } from "react-router-dom";
 import HomePage from "./pages/HomePage/HomePage";
 import "./index.scss";
 import * as ROUTES from "./constants/routes";
@@ -13,33 +13,25 @@ import {
   PublicRoute
 } from "./components/ProtectionRoute/ProtectionRoute";
 
-const App = ({ isAuthorized }) => {
+const App = () => {
   return (
     <Router>
       <Switch>
-        <PrivateRoute
-          exact
-          component={HomePage}
-          path={ROUTES.HOME}
-          authed={isAuthorized}
-        />
-        <Route path={ROUTES.DIALOG} component={DialogContainer} />
+        <PrivateRoute exact component={HomePage} path={ROUTES.HOME} />
+        <PrivateRoute component={DialogContainer} path={ROUTES.DIALOG} />
         <PublicRoute
           component={SignUpPageContainer}
           path={ROUTES.SIGN_UP}
-          authed={isAuthorized}
           restricted={true}
         />
         <PublicRoute
           component={SignInPageContainer}
           path={ROUTES.SIGN_IN}
-          authed={isAuthorized}
           restricted={true}
         />
         <PublicRoute
           component={ConfirmPageContainer}
           path={ROUTES.CONFIRM}
-          authed={isAuthorized}
           restricted={true}
         />
       </Switch>

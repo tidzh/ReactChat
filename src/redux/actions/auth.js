@@ -31,6 +31,7 @@ export const signInRequest = formData => async dispatch => {
     await authAPI.signInUser(formData);
     dispatch(reset("signIn"));
     dispatch(isFetching(false));
+    dispatch(setSessionUser(true));
   } catch (error) {
     dispatch(isFetching(false));
     dispatch(
@@ -44,6 +45,7 @@ export const signInRequest = formData => async dispatch => {
 };
 export const checkSessionRequest = () => async dispatch => {
   const data = await authAPI.checkSession();
+  Promise.all([data]).then(() => {});
   if (data) {
     dispatch(setSessionUser(true));
   } else {
