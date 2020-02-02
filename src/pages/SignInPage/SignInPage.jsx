@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Box from "@material-ui/core/Box";
 import { Form, RenderInput } from "../../components/common/Form/Form";
 import { Field } from "redux-form";
@@ -8,9 +8,16 @@ import { NavLink } from "react-router-dom";
 import { SIGN_UP } from "../../constants/routes";
 import classes from "classnames";
 import { ProgressCircular } from "../../components/common/Progress/Progress";
-import Pages from "../layout/Pages";
+import style from "./SignInPae.module.scss";
+import Pages from "../layout/Pages/Pages";
+import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
+import VisibilityIcon from "@material-ui/icons/Visibility";
 
 const SignInPage = ({ isFetching, onSubmit, handleSubmit, error }) => {
+  const [passToggle, setPassToggle] = useState(false);
+
+  const showPass = () => setPassToggle(!passToggle);
+
   return (
     <Pages
       pageMeta={{
@@ -38,14 +45,17 @@ const SignInPage = ({ isFetching, onSubmit, handleSubmit, error }) => {
               validate={[required, email]}
             />
           </Box>
-          <Box mt={2}>
+          <Box mt={2} position="relative">
             <Field
               name="password"
-              type="password"
+              type={passToggle ? "text" : "password"}
               component={RenderInput}
               placeholder="Пароль"
               validate={[required]}
             />
+            <div className={style.showPass} onClick={showPass}>
+              {passToggle ? <VisibilityIcon /> : <VisibilityOffIcon />}
+            </div>
           </Box>
           {error && (
             <Box mt={1}>

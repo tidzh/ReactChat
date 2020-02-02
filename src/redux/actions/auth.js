@@ -1,10 +1,11 @@
 import { authAPI } from "../../utils/api";
 import { reset } from "redux-form";
 import { stopSubmit } from "redux-form";
-import { REGISTER_USER } from "../../constants/actions";
+import { REGISTER_USER, SET_SESSION } from "../../constants/actions";
 import { isFetching } from "./actions-helpers";
 
 export const registerUser = data => ({ type: REGISTER_USER, data });
+export const setSessionUser = flag => ({ type: SET_SESSION, flag });
 
 export const registerRequest = formData => async dispatch => {
   try {
@@ -39,5 +40,21 @@ export const signInRequest = formData => async dispatch => {
       })
     );
     console.error(error.message);
+  }
+};
+export const checkSessionRequest = () => async dispatch => {
+  const data = await authAPI.checkSession();
+  if (data) {
+    dispatch(setSessionUser(true));
+  } else {
+    dispatch(setSessionUser(false));
+  }
+};
+export const signOutUserRequest = () => async dispatch => {
+  try {
+    await authAPI.signOutUser();
+    dispatch(setSessionUser(false));
+  } catch (error) {
+    console.log(error);
   }
 };

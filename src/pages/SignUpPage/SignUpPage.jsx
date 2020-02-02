@@ -8,7 +8,7 @@ import { NavLink } from "react-router-dom";
 import { SIGN_IN } from "../../constants/routes";
 import classes from "classnames";
 import { ProgressCircular } from "../../components/common/Progress/Progress";
-import Pages from "../layout/Pages";
+import Pages from "../layout/Pages/Pages";
 
 const SignUpPage = ({ isFetching, onSubmit, handleSubmit, error }) => {
   return (

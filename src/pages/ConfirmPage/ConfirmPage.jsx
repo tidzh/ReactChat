@@ -1,7 +1,7 @@
 import React from "react";
 import style from "./ConfirmPage.module.scss";
 import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
-import Pages from "../layout/Pages";
+import Pages from "../layout/Pages/Pages";
 
 const ConfirmPage = ({ email }) => {
   return (

@@ -5,9 +5,7 @@ import CheckIcon from "@material-ui/icons/Check";
 import { BadgeAvatars, ImageAvatars } from "../../common/Avatars/Avatars";
 import { NavLink } from "react-router-dom";
 
-const UsersListItem = ({
-  user: { id, ava, displayName, status, verif }
-}) => {
+const UsersListItem = ({ user: { id, ava, displayName, status, verif } }) => {
   return (
     <Box className={style.item}>
       <Box
@@ -36,6 +34,11 @@ const UsersListItem = ({
 };
 
 const UsersList = ({ usersList }) => {
-  return usersList.map(user => <UsersListItem key={user.id} user={user} />);
+  const users = usersList.map(user => (
+    <UsersListItem key={user.id} user={user} />
+  ));
+  return (
+    <div className={style.root}>{users}</div>
+  );
 };
 export default UsersList;

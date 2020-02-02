@@ -5,7 +5,7 @@ import { getIsFetching, getUser } from "../../redux/selectors/user";
 import { Dialog } from "./Dialog";
 import { compose } from "redux";
 import { getUserRequest } from "../../redux/actions/users";
-import Chat from "../../pages/layout/Chat";
+import Chat from "../../pages/layout/Chat/Chat";
 
 class DialogContainer extends Component {
   componentDidMount() {

@@ -6,7 +6,7 @@ import { reduxForm } from "redux-form";
 import { Redirect } from "react-router-dom";
 import { CONFIRM } from "../../constants/routes";
 import { registerRequest } from "../../redux/actions/auth";
-import { getIsFetching, getIsRegistered } from "../../redux/selectors/user";
+import {getIsAuthorized, getIsFetching, getIsRegistered} from "../../redux/selectors/user";
 
 class SignUpPageContainer extends Component {
   onSubmit = formData => {
@@ -22,13 +22,14 @@ class SignUpPageContainer extends Component {
 const mapStateToProps = state => {
   return {
     isRegistered: getIsRegistered(state),
-    isFetching: getIsFetching(state)
+    isFetching: getIsFetching(state),
+    isAuthorized: getIsAuthorized(state)
   };
 };
 
 export default compose(
-  connect(mapStateToProps, { registerRequest }),
   reduxForm({
     form: "signUp"
-  })
+  }),
+  connect(mapStateToProps, { registerRequest })
 )(SignUpPageContainer);

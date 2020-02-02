@@ -68,9 +68,19 @@ export const authAPI = {
         );
     });
   },
-  checkToken() {
-    auth.onAuthStateChanged(authUser => {
-      console.log(authUser);
+  checkSession() {
+    return new Promise(resolve => {
+      auth.onAuthStateChanged(authUser => {
+        resolve(authUser);
+      });
     });
+  },
+  signOutUser() {
+    auth
+      .signOut()
+      .then(() => {})
+      .catch(error => {
+        console.log(error);
+      });
   }
 };
