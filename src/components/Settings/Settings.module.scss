@@ -6,4 +6,10 @@
 }
 .item {
   padding: 0 10px;
+  svg {
+    cursor: pointer;
+  }
+}
+.active {
+  color: #0c8fe4;
 }

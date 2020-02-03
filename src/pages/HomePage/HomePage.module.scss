@@ -2,11 +2,19 @@
   background: #f4f7fd;
   height: 100%;
 }
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
 .chat {
   background: #ffffff;
   box-shadow: 0 0 25px rgba(0, 0, 0, 0.04204);
   max-width: 1140px;
   margin: 0 auto;
+  flex: 1;
+  display: flex;
+  width: 100%;
 }
 
 .aside {
@@ -14,7 +22,19 @@
   padding: 20px 0 0 0;
   border-right: 1px solid #f7f7f7;
 }
+.asideWrap {
+  flex-wrap: wrap;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.asideContent {
+  flex: 1 1;
+}
 
 .messages {
   flex: 1;
+}
+.userContent {
+  height: 500px;
 }

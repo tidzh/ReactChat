@@ -1,0 +1,14 @@
+.root {
+  width: 300px;
+  padding: 20px 0 0 0;
+  border-right: 1px solid #f7f7f7;
+}
+.wrap {
+  flex-wrap: wrap;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.content {
+  flex: 1 1;
+}

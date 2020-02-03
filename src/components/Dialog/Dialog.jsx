@@ -5,6 +5,7 @@ import Box from "@material-ui/core/Box";
 import classnames from "classnames";
 import CheckIcon from "@material-ui/icons/Check";
 import { ProgressCircular } from "../common/Progress/Progress";
+
 export const Dialog = ({
   user: { displayName, status, emailVerified },
   isFetching
@@ -22,9 +23,14 @@ export const Dialog = ({
           )}
         </div>
         <div className={style.status}>
-          <span className={classnames(style.badge, status && style.badgeOnline)}/>
+          <span
+            className={classnames(style.badge, status && style.badgeOnline)}
+          />
           {status ? "онлайн" : "офлайн"}
         </div>
+      </div>
+      <div className={style.posts}>
+        Здесь будет выводиться история переписки.
       </div>
     </>
   );
