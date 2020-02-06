@@ -12,7 +12,6 @@ const Chat = ({ children }) => {
   const handlerToggleSettings = () => {
     setToggleSettings(!toggleSettings);
   };
-
   return (
     <div className={style.root}>
       <Container>
@@ -20,7 +19,7 @@ const Chat = ({ children }) => {
           <div className={style.chat}>
             <Aside
               search={<Search />}
-              main={!toggleSettings ? <UsersListContainer /> : <Profile />}
+              main={toggleSettings ?  <Profile /> :<UsersListContainer />}
               settings={
                 <SettingsContainer
                   settingTrigger={handlerToggleSettings}

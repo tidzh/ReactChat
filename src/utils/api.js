@@ -71,7 +71,10 @@ export const authAPI = {
   checkSession() {
     return new Promise(resolve => {
       auth.onAuthStateChanged(authUser => {
-        resolve(authUser);
+        db.collection("users").doc(authUser.uid).get() .then(doc => {
+          const id = doc.id;
+          return resolve({ id, ...doc.data(), emailVerified:authUser.emailVerified, metadata: {...authUser.metadata} });
+        });
       });
     });
   },

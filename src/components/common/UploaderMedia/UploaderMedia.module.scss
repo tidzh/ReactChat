@@ -1,0 +1,34 @@
+.img {
+  position: relative;
+  &:hover {
+    &:after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: #1f1e2a;
+      opacity: 0.5;
+      left: 0;
+    }
+    .upload {
+      display: block;
+    }
+  }
+}
+.imgBorder {
+  &:hover {
+    &:after {
+      border-radius: 50%;
+    }
+  }
+}
+
+
+.upload {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  display: none;
+}

@@ -6,7 +6,8 @@ import { reduxForm } from "redux-form";
 import { Redirect } from "react-router-dom";
 import { CONFIRM } from "../../constants/routes";
 import { registerRequest } from "../../redux/actions/auth";
-import {getIsAuthorized, getIsFetching, getIsRegistered} from "../../redux/selectors/user";
+import {getIsFetching} from "../../redux/selectors/user";
+import {getIsAuthorized, getIsRegistered} from "../../redux/selectors/auth";
 
 class SignUpPageContainer extends Component {
   onSubmit = formData => {

@@ -1,7 +1,11 @@
 .root {
   padding: 10px 20px;
 }
-.title {
+.name {
+  font-weight: bold;
+  margin-bottom: 3px;
+}
+.email {
   font-size: 13px;
-  text-align: center;
+  color: #6c6a6a;
 }
