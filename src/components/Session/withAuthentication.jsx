@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { checkSessionRequest } from "../../redux/actions/auth";
-import {getIsAuthorized, getProfileData} from "../../redux/selectors/auth";
+import { getIsAuthorized, getProfileData } from "../../redux/selectors/auth";
 import { ProgressLine } from "../common/Progress/Progress";
 import { AppContext } from "./withAuthenticationContext";
 
@@ -13,6 +13,9 @@ const withAuthentication = Component => {
     componentWillUnmount() {
       this.props.checkSessionRequest();
     }
+    shouldComponentUpdate() {
+      return this.props.isAuthorized !== null;
+    }
 
     render() {
       const { isAuthorized, profileData } = this.props;
@@ -20,7 +23,7 @@ const withAuthentication = Component => {
 
       const globalContext = {
         isAuthorized: isAuthorized,
-        profileData:profileData
+        profileData: profileData
       };
 
       return (
@@ -33,7 +36,7 @@ const withAuthentication = Component => {
   const mapStateToProps = state => {
     return {
       isAuthorized: getIsAuthorized(state),
-      profileData: getProfileData(state),
+      profileData: getProfileData(state)
     };
   };
   return connect(mapStateToProps, { checkSessionRequest })(WithAuthentication);
