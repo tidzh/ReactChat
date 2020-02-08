@@ -5,6 +5,7 @@ import Box from "@material-ui/core/Box";
 import classnames from "classnames";
 import CheckIcon from "@material-ui/icons/Check";
 import { ProgressCircular } from "../common/Progress/Progress";
+import DialogForm from "./DialogForm";
 
 export const Dialog = ({
   user: { displayName, status, emailVerified },
@@ -29,8 +30,11 @@ export const Dialog = ({
           {status ? "онлайн" : "офлайн"}
         </div>
       </div>
-      <div className={style.posts}>
-        Здесь будет выводиться история переписки.
+      <div className={style.content}>
+        <div className={style.posts}>
+          <div>Здесь будет выводиться история переписки.</div>
+        </div>
+        <DialogForm />
       </div>
     </>
   );

@@ -1,0 +1,52 @@
+.root {
+  background: #ffffff;
+  border: 1px solid #e9e9e9;
+  box-sizing: border-box;
+  border-radius: 4px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+}
+.form {
+  width: 100%;
+  padding: 0 90px 0 10px;
+  position: relative;
+}
+.textarea {
+  border: none;
+  width: 100%;
+  font-size: 14px;
+  height: 36px;
+  line-height: 36px;
+  letter-spacing: 0.1px;
+  color: #b4b4b4;
+  resize: none;
+  &::-webkit-input-placeholder {
+    font-size: 14px;
+    color: #b4b4b4;
+    vertical-align: middle;
+  }
+}
+.icon {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  right: -5px;
+  top: 50%;
+  margin-top: -13px;
+}
+.iconItem {
+  margin: 0 5px;
+  cursor: pointer;
+  &:hover {
+    color: #828a99;
+  }
+}
+.submit {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  color: inherit;
+  cursor: pointer;
+}

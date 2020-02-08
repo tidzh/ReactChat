@@ -6,6 +6,15 @@
   height: 100%;
   color: #d5dfe9;
 }
+.content {
+  flex-wrap: wrap;
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 62px);
+  color: #939393;
+  font-size: 13px;
+  padding: 35px;
+}
 
 .defaultImg {
   font-size: 100px !important;
@@ -60,10 +69,8 @@
   margin-top: -11px;
 }
 .posts {
-  display: flex;
+  flex: 1 1;
   align-items: center;
-  height: 100%;
+  display: flex;
   justify-content: center;
-  color: #939393;
-  font-size: 13px;
 }
