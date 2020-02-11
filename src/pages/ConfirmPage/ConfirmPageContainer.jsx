@@ -3,8 +3,7 @@ import ConfirmPage from "./ConfirmPage";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { HOME, SIGN_UP } from "../../constants/routes";
-import { getEmail } from "../../redux/selectors/user";
-import { getIsAuthorized, getIsRegistered } from "../../redux/selectors/auth";
+import {getEmail, getIsAuthorized, getIsRegistered} from "../../redux/selectors/auth";
 
 class ConfirmPageContainer extends Component {
   render() {

@@ -6,6 +6,9 @@ import { Dialog } from "./Dialog";
 import { compose } from "redux";
 import { getUserRequest } from "../../redux/actions/users";
 import Chat from "../../pages/layout/Chat/Chat";
+import { reduxForm } from "redux-form";
+import { setDialogRequest } from "../../redux/actions/dialog";
+import { getAuthUserId } from "../../redux/selectors/auth";
 
 class DialogContainer extends Component {
   componentDidMount() {
@@ -17,12 +20,33 @@ class DialogContainer extends Component {
       this.props.getUserRequest(this.props.match.params.url);
     }
   }
+  shouldComponentUpdate(nextProps, nextState) {
+    return Object.entries(this.props.user).length !== 0;
+    
+  }
+  onSubmit = formData => {
+    this.props.setDialogRequest(
+      formData,
+      this.props.match.params.url,
+      this.props.fromUid
+    );
+  };
 
   render() {
-    const { user, isFetching } = this.props;
+    const { user, isFetching, handleSubmit } = this.props;
     return (
-      <Chat>
-        <Dialog user={user} isFetching={isFetching} />
+      <Chat
+        pageMeta={{
+          title: `Диалог с пользователем ${user.displayName}`,
+          description: `Диалог с пользователем ${user.displayName}`
+        }}
+      >
+        <Dialog
+          user={user}
+          isFetching={isFetching}
+          handleSubmit={handleSubmit}
+          onSubmit={this.onSubmit}
+        />
       </Chat>
     );
   }
@@ -30,6 +54,7 @@ class DialogContainer extends Component {
 
 const mapStateToProps = state => {
   return {
+    fromUid: getAuthUserId(state),
     user: getUser(state),
     isFetching: getIsFetching(state)
   };
@@ -37,5 +62,8 @@ const mapStateToProps = state => {
 
 export default compose(
   withRouter,
-  connect(mapStateToProps, { getUserRequest })
+  connect(mapStateToProps, { getUserRequest, setDialogRequest }),
+  reduxForm({
+    form: "dialog"
+  })
 )(DialogContainer);

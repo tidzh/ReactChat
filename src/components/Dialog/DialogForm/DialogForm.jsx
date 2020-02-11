@@ -4,16 +4,20 @@ import SentimentSatisfiedRoundedIcon from "@material-ui/icons/SentimentSatisfied
 import SendRoundedIcon from "@material-ui/icons/SendRounded";
 import PhotoCameraOutlinedIcon from "@material-ui/icons/PhotoCameraOutlined";
 import MicNoneIcon from "@material-ui/icons/MicNone";
-const DialogForm = () => {
+import { Form, RenderInput } from "../../common/Form/Form";
+import { required } from "../../../utils/validators";
+import { Field } from "redux-form";
+const DialogForm = ({ onSubmit, handleSubmit}) => {
   return (
     <div className={style.root}>
       <SentimentSatisfiedRoundedIcon />
-      <form action="" className={style.form}>
-        <textarea
-          name=""
-          id=""
+      <Form onSubmit={handleSubmit(onSubmit)} className={style.form}>
+        <Field
+          name="dialog"
+          component={RenderInput}
           placeholder="Введите текст сообщения…"
           className={style.textarea}
+          validate={[required]}
         />
         <div className={style.icon}>
           <div className={style.iconItem}>
@@ -23,12 +27,12 @@ const DialogForm = () => {
             <PhotoCameraOutlinedIcon />
           </div>
           <div className={style.iconItem}>
-            <button type="submit" className={style.submit}>
+            <button className={style.submit}>
               <SendRoundedIcon />
             </button>
           </div>
         </div>
-      </form>
+      </Form>
     </div>
   );
 };

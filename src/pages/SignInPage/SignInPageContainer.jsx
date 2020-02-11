@@ -4,7 +4,8 @@ import { compose } from "redux";
 import { reduxForm } from "redux-form";
 import { connect } from "react-redux";
 import { signInRequest } from "../../redux/actions/auth";
-import { getEmail, getIsFetching } from "../../redux/selectors/user";
+import { getIsFetching } from "../../redux/selectors/user";
+import {getEmail} from "../../redux/selectors/auth";
 
 class SignInPageContainer extends Component {
   onSubmit = formData => {

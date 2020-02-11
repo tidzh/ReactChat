@@ -14,3 +14,4 @@ export const SET_USER_INFO = "SET_USER_INFO";
 
 // DIALOG
 export const DIALOG_SET = "DIALOG_SET";
+export const DIALOG_GET = "DIALOGS_GET";

@@ -12,10 +12,10 @@ const initialState = {
 };
 
 const Auth = (state = initialState, action) => {
-  const { email, uid} = {payload : null};
   switch (action.type) {
     case REGISTER_USER:
-      return { ...state, profile: {...state.profile, email, uid }, isRegistered: true };
+      const { email, uid} = action.payload;
+      return { ...state, profile: {...state.profile, email, uid }, isRegistered: false };
     case SET_USER_INFO:
       return {...state, profile:{...action.payload}};
     case SET_SESSION: {

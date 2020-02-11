@@ -10,7 +10,9 @@ import DialogPostsContainer from "./DialogPosts/DialogPostsContainer";
 
 export const Dialog = ({
   user: { displayName, status, emailVerified },
-  isFetching
+  isFetching,
+  onSubmit,
+  handleSubmit
 }) => {
   if (isFetching) return <ProgressCircular />;
   return (
@@ -33,7 +35,7 @@ export const Dialog = ({
       </div>
       <div className={style.content}>
         <DialogPostsContainer />
-        <DialogForm />
+        <DialogForm onSubmit={onSubmit} handleSubmit={handleSubmit} />
       </div>
     </>
   );

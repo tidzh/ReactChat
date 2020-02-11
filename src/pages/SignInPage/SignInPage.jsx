@@ -17,7 +17,6 @@ const SignInPage = ({ isFetching, onSubmit, handleSubmit, error }) => {
   const [passToggle, setPassToggle] = useState(false);
 
   const showPass = () => setPassToggle(!passToggle);
-
   return (
     <Pages
       pageMeta={{

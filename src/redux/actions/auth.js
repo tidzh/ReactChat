@@ -1,7 +1,11 @@
 import { authAPI } from "../../utils/api";
 import { reset } from "redux-form";
 import { stopSubmit } from "redux-form";
-import {REGISTER_USER, SET_SESSION, SET_USER_INFO} from "../../constants/actions";
+import {
+  REGISTER_USER,
+  SET_SESSION,
+  SET_USER_INFO
+} from "../../constants/actions";
 import { isFetching } from "./actions-helpers";
 
 export const registerUser = payload => ({ type: REGISTER_USER, payload });
@@ -49,7 +53,7 @@ export const checkSessionRequest = () => async dispatch => {
   Promise.all([data]).then(() => {});
   if (data) {
     dispatch(setSessionUser(true));
-    dispatch(setUserInfo(data))
+    dispatch(setUserInfo(data));
   } else {
     dispatch(setSessionUser(false));
   }

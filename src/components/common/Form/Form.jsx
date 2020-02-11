@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import FormControl from "@material-ui/core/FormControl";
 import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline";
 import style from "./Form.module.scss";
 import Popover from "@material-ui/core/Popover";
@@ -8,7 +7,7 @@ import { makeStyles } from "@material-ui/core/styles";
 export const Form = ({ onSubmit, children, className }) => {
   return (
     <form className={className} onSubmit={onSubmit}>
-      <FormControl fullWidth>{children}</FormControl>
+      {children}
     </form>
   );
 };

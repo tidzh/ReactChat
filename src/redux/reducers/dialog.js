@@ -1,4 +1,4 @@
-import { DIALOG_SET } from "../../constants/actions";
+import {DIALOG_GET, DIALOG_SET} from "../../constants/actions";
 
 const initialState = {
   posts: [
@@ -57,6 +57,8 @@ const initialState = {
 const Dialog = (state = initialState, action) => {
   switch (action.type) {
     case DIALOG_SET:
+      return { ...state };
+    case DIALOG_GET:
       return { ...state };
     default:
       return state;

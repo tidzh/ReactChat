@@ -71,18 +71,22 @@ export const authAPI = {
   checkSession() {
     return new Promise(resolve => {
       auth.onAuthStateChanged(authUser => {
-        db.collection("users")
-          .doc(authUser.uid)
-          .get()
-          .then(doc => {
-            const id = doc.id;
-            return resolve({
-              id,
-              ...doc.data(),
-              emailVerified: authUser.emailVerified,
-              metadata: { ...authUser.metadata }
+        if (authUser) {
+          db.collection("users")
+            .doc(authUser.uid)
+            .get()
+            .then(doc => {
+              const id = doc.id;
+              return resolve({
+                id,
+                ...doc.data(),
+                emailVerified: authUser.emailVerified,
+                metadata: { ...authUser.metadata }
+              });
             });
-          });
+        } else {
+          resolve(authUser);
+        }
       });
     });
   },
@@ -93,5 +97,16 @@ export const authAPI = {
       .catch(error => {
         console.log(error);
       });
+  }
+};
+export const dialogAPI = {
+  sendMessage(formData, userRoomID, fromUid) {
+    db.collection("dialogs").doc(userRoomID).collection('messages').doc()
+      .set({
+        fromUid: fromUid,
+        message: formData.dialog,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      });
+    
   }
 };
