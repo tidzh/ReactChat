@@ -25,7 +25,6 @@ const withAuthentication = Component => {
         isAuthorized: isAuthorized,
         profileData: profileData
       };
-
       return (
         <AppContext.Provider value={globalContext}>
           <Component {...this.props} />

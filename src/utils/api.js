@@ -1,4 +1,5 @@
 import firebase from "../components/Firebase/Firebase";
+import { getGroupChatId, getTimestamp } from "./functions-helpers";
 const db = firebase.firestore();
 const auth = firebase.auth();
 
@@ -100,13 +101,33 @@ export const authAPI = {
   }
 };
 export const dialogAPI = {
-  sendMessage(formData, userRoomID, fromUid) {
-    db.collection("dialogs").doc(userRoomID).collection('messages').doc()
+  setMessage(formData, userRoomID, fromUid) {
+    const groupChatId = getGroupChatId(userRoomID, fromUid);
+
+    db.collection("chatrooms")
+      .doc(groupChatId)
+      .collection("messages")
+      .doc(getTimestamp().seconds.toString())
       .set({
+        toUid: userRoomID,
         fromUid: fromUid,
         message: formData.dialog,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        createdAt: getTimestamp()
       });
-    
+  },
+  getDialog(userRoomID, fromUid) {
+    const groupChatId = getGroupChatId(userRoomID, fromUid);
+
+    return db
+      .collection("chatrooms")
+      .doc(groupChatId)
+      .collection("messages")
+      .get()
+      .then(querySnapshot =>
+        querySnapshot.docs.map(doc => {
+          const id = doc.id;
+          return { id, ...doc.data() };
+        })
+      );
   }
 };

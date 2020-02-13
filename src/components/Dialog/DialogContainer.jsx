@@ -7,12 +7,16 @@ import { compose } from "redux";
 import { getUserRequest } from "../../redux/actions/users";
 import Chat from "../../pages/layout/Chat/Chat";
 import { reduxForm } from "redux-form";
-import { setDialogRequest } from "../../redux/actions/dialog";
+import { getDialogRequest, setDialogRequest } from "../../redux/actions/dialog";
 import { getAuthUserId } from "../../redux/selectors/auth";
 
 class DialogContainer extends Component {
   componentDidMount() {
     this.props.getUserRequest(this.props.match.params.url);
+    this.props.getDialogRequest(
+      this.props.match.params.url,
+      this.props.fromUid
+    );
   }
 
   componentDidUpdate(prevProps) {
@@ -22,7 +26,6 @@ class DialogContainer extends Component {
   }
   shouldComponentUpdate(nextProps, nextState) {
     return Object.entries(this.props.user).length !== 0;
-    
   }
   onSubmit = formData => {
     this.props.setDialogRequest(
@@ -62,7 +65,11 @@ const mapStateToProps = state => {
 
 export default compose(
   withRouter,
-  connect(mapStateToProps, { getUserRequest, setDialogRequest }),
+  connect(mapStateToProps, {
+    getUserRequest,
+    setDialogRequest,
+    getDialogRequest
+  }),
   reduxForm({
     form: "dialog"
   })
