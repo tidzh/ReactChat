@@ -14,5 +14,5 @@ export const SET_USER_INFO = "SET_USER_INFO";
 export const UPDATE_USER_AVATAR = "UPDATE_USER_AVATAR";
 
 // DIALOG
-export const DIALOG_SET = "DIALOG_SET";
 export const DIALOG_GET = "DIALOGS_GET";
+export const DIALOG_ADD_MESSAGE = "DIALOG_ADD_MESSAGE";

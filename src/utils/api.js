@@ -102,20 +102,6 @@ export const authAPI = {
   }
 };
 export const dialogAPI = {
-  setMessage(formData, userRoomID, fromUid) {
-    const groupChatId = getGroupChatId(userRoomID, fromUid);
-
-    db.collection("chatrooms")
-      .doc(groupChatId)
-      .collection("messages")
-      .doc(getTimestamp().seconds.toString())
-      .set({
-        toUid: userRoomID,
-        fromUid: fromUid,
-        message: formData.dialog,
-        createdAt: getTimestamp()
-      });
-  },
   getDialog(userRoomID, fromUid) {
     const groupChatId = getGroupChatId(userRoomID, fromUid);
 
@@ -130,6 +116,21 @@ export const dialogAPI = {
           return { id, ...doc.data() };
         })
       );
+  },
+  addNewMessage(formData, userRoomID, fromUid) {
+    const groupChatId = getGroupChatId(userRoomID, fromUid);
+    const newMessage = {
+      toUid: userRoomID,
+      fromUid: fromUid,
+      message: formData.dialog,
+      createdAt: getTimestamp()
+    };
+    db.collection("chatrooms")
+      .doc(groupChatId)
+      .collection("messages")
+      .doc(getTimestamp().seconds.toString())
+      .set(newMessage);
+    return { id: getTimestamp().seconds.toString(), ...newMessage };
   }
 };
 export const uploadFileAPI = {

@@ -36,7 +36,6 @@ body {
 
 .formFetching {
   position: relative;
-
   &:after {
     position: absolute;
     width: 100%;
@@ -44,6 +43,7 @@ body {
     content: "";
     opacity: 0.5;
     left: 0;
+    bottom: 0;
     background: #ffffff;
   }
 }

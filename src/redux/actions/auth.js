@@ -50,7 +50,6 @@ export const signInRequest = formData => async dispatch => {
 };
 export const checkSessionRequest = () => async dispatch => {
   const data = await authAPI.checkSession();
-  Promise.all([data]).then(() => {});
   if (data) {
     dispatch(setSessionUser(true));
     dispatch(setUserInfo(data));

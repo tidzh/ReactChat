@@ -6,22 +6,33 @@ import {convertDate} from "../../../utils/functions-helpers";
 import {AppContext} from "../../Session/withAuthenticationContext";
 
 
-const DialogPosts = ({ dialog }) => {
+const DialogPosts = ({ dialog, photo }) => {
   const authed = useContext(AppContext);
   const posts = dialog.map(post => {
     return (
       <div key={post.id} className={style.item}>
-        <div className={classNames(style.wrap, {
-          [`${style.wrapAnswer}`]: post.fromUid !== authed.profileData.id && true
-        })}>
-          <div className={style.avatar}><ImageAvatars/></div>
+        <div
+          className={classNames(style.wrap, {
+            [`${style.wrapAnswer}`]:
+              post.fromUid !== authed.profileData.id && true
+          })}
+        >
+          <div className={style.avatar}>
+            {post.fromUid === authed.profileData.id ? (
+              <ImageAvatars src={authed.profileData.photoURL} />
+            ) : (
+              <ImageAvatars src={photo} />
+            )}
+          </div>
           <div className={style.info}>
             <div className={style.text}>{post.message}</div>
-            <div className={style.date}>{convertDate(post.createdAt.seconds)}</div>
+            <div className={style.date}>
+              {convertDate(post.createdAt.seconds)}
+            </div>
           </div>
         </div>
       </div>
-    )
+    );
   });
 
   return (

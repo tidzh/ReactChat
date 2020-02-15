@@ -11,7 +11,7 @@ export const hashString = str => {
   return hash;
 };
 export const getTimestamp = () => {
-  firebase.firestore.Timestamp.fromDate(new Date());
+  return firebase.firestore.Timestamp.fromDate(new Date());
 };
 
 export const convertDate = value => {
@@ -27,14 +27,11 @@ export const convertDate = value => {
 };
 
 export const getGroupChatId = (fromUid, userRoomID) => {
-  let groupChatId;
-
   if (hashString(fromUid) <= hashString(userRoomID)) {
-    groupChatId = `${fromUid}-${userRoomID}`;
+    return `${fromUid}-${userRoomID}`;
   } else {
-    groupChatId = `${userRoomID}-${fromUid}`;
+    return `${userRoomID}-${fromUid}`;
   }
-  return groupChatId;
 };
 
 export const uploadFileRequest = (file, newFileName) => {

@@ -6,7 +6,7 @@ import {
 } from "../../constants/actions";
 
 const initialState = {
-  profile: null,
+  profile: {},
   isRegistered: false,
   isAuthorized: null,
   isFetching: false

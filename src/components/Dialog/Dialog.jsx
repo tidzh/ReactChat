@@ -9,7 +9,7 @@ import DialogForm from "./DialogForm/DialogForm";
 import DialogPostsContainer from "./DialogPosts/DialogPostsContainer";
 
 export const Dialog = ({
-  user: { displayName, status, emailVerified },
+  user: { displayName, status, emailVerified, photoURL },
   isFetching,
   onSubmit,
   handleSubmit
@@ -34,7 +34,7 @@ export const Dialog = ({
         </div>
       </div>
       <div className={style.content}>
-        <DialogPostsContainer />
+        <DialogPostsContainer photoURL={photoURL} />
         <DialogForm onSubmit={onSubmit} handleSubmit={handleSubmit} />
       </div>
     </>
