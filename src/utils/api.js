@@ -2,6 +2,7 @@ import firebase from "../components/Firebase/Firebase";
 import { getGroupChatId, getTimestamp } from "./functions-helpers";
 const db = firebase.firestore();
 const auth = firebase.auth();
+const storage = firebase.storage();
 
 export const usersAPI = {
   getUsers() {
@@ -129,5 +130,37 @@ export const dialogAPI = {
           return { id, ...doc.data() };
         })
       );
+  }
+};
+export const uploadFileAPI = {
+  uploadFile(file, path) {
+    console.log(file);
+    const storageRef = storage.ref(`${path}/${file.name}`);
+    return storageRef.put(file).then(snapshot => {
+      return snapshot.metadata.name;
+    });
+  },
+  getFile(fileName, filePhat) {
+    return storage
+      .ref(filePhat)
+      .child(fileName)
+      .getDownloadURL()
+      .then(url => {
+        return url;
+      });
+  }
+};
+
+export const updateUserAPI = {
+  updateAvatar(fileURL, userId) {
+    return db
+      .collection("users")
+      .doc(userId)
+      .update({
+        photoURL: fileURL
+      })
+      .then(() => {
+        console.info(`Аварат для ${fileURL} успешно обновлен`);
+      });
   }
 };

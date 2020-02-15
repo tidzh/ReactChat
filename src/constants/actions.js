@@ -7,10 +7,11 @@ export const SET_USER = "SET_USER";
 
 export const IS_FETCHING = "IS_FETCHING";
 
-// AUTH
+// CURRENT USER
 export const REGISTER_USER = "REGISTER_USER";
 export const SET_SESSION = "SET_SESSION";
 export const SET_USER_INFO = "SET_USER_INFO";
+export const UPDATE_USER_AVATAR = "UPDATE_USER_AVATAR";
 
 // DIALOG
 export const DIALOG_SET = "DIALOG_SET";

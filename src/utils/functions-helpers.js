@@ -1,4 +1,6 @@
 import firebase from "../components/Firebase/Firebase";
+import { uploadFileAPI } from "./api";
+import { PATH } from "../constants/settings";
 
 export const hashString = str => {
   let hash = 0;
@@ -8,8 +10,9 @@ export const hashString = str => {
   }
   return hash;
 };
-export const getTimestamp = () =>
+export const getTimestamp = () => {
   firebase.firestore.Timestamp.fromDate(new Date());
+};
 
 export const convertDate = value => {
   const time = new Date(value * 1000).toLocaleTimeString([], {
@@ -20,7 +23,6 @@ export const convertDate = value => {
     month: "long",
     day: "numeric"
   });
-
   return `${date} в ${time}`;
 };
 
@@ -33,4 +35,12 @@ export const getGroupChatId = (fromUid, userRoomID) => {
     groupChatId = `${userRoomID}-${fromUid}`;
   }
   return groupChatId;
+};
+
+export const uploadFileRequest = (file, newFileName) => {
+  return uploadFileAPI.uploadFile(file, PATH.getAvatar(), newFileName);
+};
+
+export const getFilePathRequest = fileName => {
+  return uploadFileAPI.getFile(fileName, PATH.getAvatar());
 };

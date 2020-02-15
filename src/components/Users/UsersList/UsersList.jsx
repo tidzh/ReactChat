@@ -5,7 +5,7 @@ import CheckIcon from "@material-ui/icons/Check";
 import { BadgeAvatars, ImageAvatars } from "../../common/Avatars/Avatars";
 import { NavLink } from "react-router-dom";
 
-const UsersListItem = ({ user: { id, ava, displayName, status, verif } }) => {
+const UsersListItem = ({ user: { id, photoURL, displayName, status, verif } }) => {
   return (
     <Box className={style.item}>
       <Box
@@ -16,7 +16,7 @@ const UsersListItem = ({ user: { id, ava, displayName, status, verif } }) => {
         component={NavLink}
         to={`/dialog/${id}`}
       >
-        {status ? <BadgeAvatars src={ava} /> : <ImageAvatars />}
+        {status ? <BadgeAvatars src={photoURL} /> : <ImageAvatars src={photoURL} />}
         <div className={style.info}>
           <div className={style.name}>
             <span>{displayName}</span>
