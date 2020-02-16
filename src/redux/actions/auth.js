@@ -49,10 +49,10 @@ export const signInRequest = formData => async dispatch => {
   }
 };
 export const checkSessionRequest = () => async dispatch => {
-  const data = await authAPI.checkSession();
-  if (data) {
+  const payload = await authAPI.checkSession();
+  if (payload) {
     dispatch(setSessionUser(true));
-    dispatch(setUserInfo(data));
+    dispatch(setUserInfo(payload));
   } else {
     dispatch(setSessionUser(false));
   }
@@ -61,6 +61,7 @@ export const signOutUserRequest = () => async dispatch => {
   try {
     await authAPI.signOutUser();
     dispatch(setSessionUser(false));
+    dispatch(setUserInfo(null));
   } catch (error) {
     console.log(error);
   }

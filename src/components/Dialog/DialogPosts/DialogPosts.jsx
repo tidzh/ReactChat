@@ -1,12 +1,11 @@
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import style from "./DialogPosts.module.scss";
 import { ImageAvatars } from "../../common/Avatars/Avatars";
 import classNames from "classnames";
-import {convertDate} from "../../../utils/functions-helpers";
-import {AppContext} from "../../Session/withAuthenticationContext";
+import { convertDate } from "../../../utils/functions-helpers";
+import { AppContext } from "../../Session/withAuthenticationContext";
 
-
-const DialogPosts = ({ dialog, photo }) => {
+const DialogPosts = ({ dialog, userCompanion: { photoURL } }) => {
   const authed = useContext(AppContext);
   const posts = dialog.map(post => {
     return (
@@ -21,7 +20,7 @@ const DialogPosts = ({ dialog, photo }) => {
             {post.fromUid === authed.profileData.id ? (
               <ImageAvatars src={authed.profileData.photoURL} />
             ) : (
-              <ImageAvatars src={photo} />
+              <ImageAvatars src={photoURL} />
             )}
           </div>
           <div className={style.info}>
@@ -34,10 +33,9 @@ const DialogPosts = ({ dialog, photo }) => {
       </div>
     );
   });
-
   return (
     <>
-      {posts ? (
+      {posts.length > 0 ? (
         <div className={style.root}>{posts}</div>
       ) : (
         <div className={style.default}>

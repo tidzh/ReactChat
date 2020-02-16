@@ -15,6 +15,9 @@ const withAuthentication = Component => {
     }
     shouldComponentUpdate() {
       return this.props.isAuthorized !== null;
+      // shouldComponentUpdate(nextProps, nextState) {
+      //   return this.props.isAuthorized !== nextProps.isAuthorized;
+      // }
     }
 
     render() {

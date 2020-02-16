@@ -4,7 +4,7 @@ import { compose } from "redux";
 import { reduxForm } from "redux-form";
 import { connect } from "react-redux";
 import { signInRequest } from "../../redux/actions/auth";
-import { getIsFetching } from "../../redux/selectors/user";
+import { getIsFetchingUser } from "../../redux/selectors/user";
 import {getEmail} from "../../redux/selectors/auth";
 
 class SignInPageContainer extends Component {
@@ -18,7 +18,7 @@ class SignInPageContainer extends Component {
 const mapStateToProps = state => {
   return {
     email: getEmail(state),
-    isFetching: getIsFetching(state)
+    isFetching: getIsFetchingUser(state)
   };
 };
 export default compose(

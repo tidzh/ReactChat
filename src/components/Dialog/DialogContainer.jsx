@@ -1,14 +1,19 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { getIsFetching, getUser } from "../../redux/selectors/user";
+import { getUserCompanion } from "../../redux/selectors/user";
 import { Dialog } from "./Dialog";
 import { compose } from "redux";
 import { getUserRequest } from "../../redux/actions/users";
 import Chat from "../../pages/layout/Chat/Chat";
 import { reduxForm } from "redux-form";
-import { getDialogRequest, setDialogRequest } from "../../redux/actions/dialog";
+import { getDialogRequest, addNewRequest } from "../../redux/actions/dialog";
 import { getAuthUserId } from "../../redux/selectors/auth";
+import { dialogIsFetching, getDialog } from "../../redux/selectors/dialog";
+import DialogPosts from "./DialogPosts/DialogPosts";
+import { ProgressCircular } from "../common/Progress/Progress";
+import DialogHeaderUser from "./DialogHeaderUser/DialogHeaderUser";
+import DialogForm from "./DialogForm/DialogForm";
 
 class DialogContainer extends Component {
   componentDidMount() {
@@ -25,10 +30,10 @@ class DialogContainer extends Component {
     }
   }
   shouldComponentUpdate(nextProps, nextState) {
-    return Object.entries(this.props.user).length !== 0;
+    return Object.entries(this.props.userCompanion).length !== 0;
   }
   onSubmit = formData => {
-    this.props.setDialogRequest(
+    this.props.addNewRequest(
       formData,
       this.props.match.params.url,
       this.props.fromUid
@@ -36,19 +41,26 @@ class DialogContainer extends Component {
   };
 
   render() {
-    const { user, isFetching, handleSubmit } = this.props;
+    const { userCompanion, dialog, handleSubmit, getDialogIsFetching } = this.props;
     return (
       <Chat
         pageMeta={{
-          title: `Диалог с пользователем ${user.displayName}`,
-          description: `Диалог с пользователем ${user.displayName}`
+          title: `Диалог с пользователем ${userCompanion.displayName}`,
+          description: `Диалог с пользователем ${userCompanion.displayName}`
         }}
       >
         <Dialog
-          user={user}
-          isFetching={isFetching}
-          handleSubmit={handleSubmit}
-          onSubmit={this.onSubmit}
+          dialogHeaderUserSection={<DialogHeaderUser userCompanion={userCompanion} />}
+          dialogFormSection={
+            <DialogForm onSubmit={this.onSubmit} handleSubmit={handleSubmit} />
+          }
+          dialogPostsSection={
+            getDialogIsFetching === true ? (
+              <ProgressCircular />
+            ) : (
+              <DialogPosts dialog={dialog} userCompanion={userCompanion} />
+            )
+          }
         />
       </Chat>
     );
@@ -58,8 +70,9 @@ class DialogContainer extends Component {
 const mapStateToProps = state => {
   return {
     fromUid: getAuthUserId(state),
-    user: getUser(state),
-    isFetching: getIsFetching(state)
+    userCompanion: getUserCompanion(state),
+    getDialogIsFetching: dialogIsFetching(state),
+    dialog: getDialog(state)
   };
 };
 
@@ -67,7 +80,7 @@ export default compose(
   withRouter,
   connect(mapStateToProps, {
     getUserRequest,
-    setDialogRequest,
+    addNewRequest,
     getDialogRequest
   }),
   reduxForm({

@@ -1,0 +1,36 @@
+.root {
+    text-align: center;
+    border-bottom: 1px solid #f7f7f7;
+    padding: 11px 10px;
+}
+.userName {
+  font-size: 14px;
+  font-weight: 500;
+  color: #202020;
+  margin-bottom: 5px;
+  display: inline-block;
+  position: relative;
+}
+.verif {
+  color: #0c8fe4;
+  margin-left: 5px;
+  position: absolute;
+  top: 50%;
+  margin-top: -11px;
+}
+.status {
+  font-size: 14px;
+  color: #a6a6a6;
+}
+.badge {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #bdbdbd;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 3px;
+}
+.badgeOnline {
+  background: #00c980;
+}

@@ -19,7 +19,7 @@ const Auth = (state = initialState, action) => {
       return {
         ...state,
         profile: { ...state.profile, email, uid },
-        isRegistered: false
+        isRegistered: true
       };
     case SET_USER_INFO:
       return { ...state, profile: { ...action.payload } };
