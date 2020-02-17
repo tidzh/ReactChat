@@ -16,7 +16,7 @@ import DialogHeaderUser from "./DialogHeaderUser/DialogHeaderUser";
 import DialogForm from "./DialogForm/DialogForm";
 
 class DialogContainer extends Component {
-  componentDidMount() {
+  _instanceDialog() {
     this.props.getUserRequest(this.props.match.params.url);
     this.props.getDialogRequest(
       this.props.match.params.url,
@@ -24,13 +24,14 @@ class DialogContainer extends Component {
     );
   }
 
+  componentDidMount() {
+    this._instanceDialog();
+  }
+
   componentDidUpdate(prevProps) {
     if (this.props.match.params.url !== prevProps.match.params.url) {
-      this.props.getUserRequest(this.props.match.params.url);
+      this._instanceDialog();
     }
-  }
-  shouldComponentUpdate(nextProps, nextState) {
-    return Object.entries(this.props.userCompanion).length !== 0;
   }
   onSubmit = formData => {
     this.props.addNewRequest(
@@ -41,7 +42,12 @@ class DialogContainer extends Component {
   };
 
   render() {
-    const { userCompanion, dialog, handleSubmit, getDialogIsFetching } = this.props;
+    const {
+      userCompanion,
+      dialog,
+      handleSubmit,
+      getDialogIsFetching
+    } = this.props;
     return (
       <Chat
         pageMeta={{
@@ -50,7 +56,9 @@ class DialogContainer extends Component {
         }}
       >
         <Dialog
-          dialogHeaderUserSection={<DialogHeaderUser userCompanion={userCompanion} />}
+          dialogHeaderUserSection={
+            <DialogHeaderUser userCompanion={userCompanion} />
+          }
           dialogFormSection={
             <DialogForm onSubmit={this.onSubmit} handleSubmit={handleSubmit} />
           }
