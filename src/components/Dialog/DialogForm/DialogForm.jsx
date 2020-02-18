@@ -10,6 +10,7 @@ import { Field } from "redux-form";
 const DialogForm = ({ onSubmit, handleSubmit}) => {
   return (
     <div className={style.root}>
+    <div className={style.wrap}>
       <SentimentSatisfiedRoundedIcon />
       <Form onSubmit={handleSubmit(onSubmit)} className={style.form}>
         <Field
@@ -33,6 +34,7 @@ const DialogForm = ({ onSubmit, handleSubmit}) => {
           </div>
         </div>
       </Form>
+    </div>
     </div>
   );
 };

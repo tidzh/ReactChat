@@ -14,6 +14,7 @@ import DialogPosts from "./DialogPosts/DialogPosts";
 import { ProgressCircular } from "../common/Progress/Progress";
 import DialogHeaderUser from "./DialogHeaderUser/DialogHeaderUser";
 import DialogForm from "./DialogForm/DialogForm";
+import style from "./Dialog.module.scss";
 
 class DialogContainer extends Component {
   _instanceDialog() {
@@ -64,7 +65,9 @@ class DialogContainer extends Component {
           }
           dialogPostsSection={
             getDialogIsFetching === true ? (
-              <ProgressCircular />
+              <div className={style.content}>
+              <ProgressCircular className={style.progressCenter} />
+              </div>
             ) : (
               <DialogPosts dialog={dialog} userCompanion={userCompanion} />
             )

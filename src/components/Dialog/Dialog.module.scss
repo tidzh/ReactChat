@@ -7,13 +7,14 @@
   color: #d5dfe9;
 }
 .content {
+  position: relative;
   flex-wrap: wrap;
   display: flex;
   flex-direction: column;
   height: calc(100% - 62px);
   color: #939393;
   font-size: 13px;
-  padding: 35px;
+  //padding: 35px;
 }
 
 .defaultImg {
@@ -27,4 +28,9 @@
 .stub {
   max-width: 220px;
   font-size: 14px;
+}
+.progressCenter {
+  height: 100%;
+  align-items: center;
+  margin: 0 !important;
 }
