@@ -55,3 +55,14 @@
   color: inherit;
   cursor: pointer;
 }
+.smileTrigger {
+  cursor: pointer;
+}
+.smileTriggerActive {
+  color: #0c8fe4;
+}
+.smile{
+  position: absolute;
+  bottom: 80px;
+  z-index: 2;
+}

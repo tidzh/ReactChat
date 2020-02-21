@@ -122,7 +122,7 @@ export const dialogAPI = {
     const newMessage = {
       toUid: userRoomID,
       fromUid: fromUid,
-      message: formData.dialog,
+      message: formData,
       createdAt: getTimestamp()
     };
     db.collection("chatrooms")

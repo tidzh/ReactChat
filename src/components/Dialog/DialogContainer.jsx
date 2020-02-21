@@ -6,7 +6,6 @@ import { Dialog } from "./Dialog";
 import { compose } from "redux";
 import { getUserRequest } from "../../redux/actions/users";
 import Chat from "../../pages/layout/Chat/Chat";
-import { reduxForm } from "redux-form";
 import { getDialogRequest, addNewRequest } from "../../redux/actions/dialog";
 import { getAuthUserId } from "../../redux/selectors/auth";
 import { dialogIsFetching, getDialog } from "../../redux/selectors/dialog";
@@ -17,6 +16,10 @@ import DialogForm from "./DialogForm/DialogForm";
 import style from "./Dialog.module.scss";
 
 class DialogContainer extends Component {
+  state = {
+    dialogForm: ""
+  };
+
   _instanceDialog() {
     this.props.getUserRequest(this.props.match.params.url);
     this.props.getDialogRequest(
@@ -34,21 +37,29 @@ class DialogContainer extends Component {
       this._instanceDialog();
     }
   }
-  onSubmit = formData => {
-    this.props.addNewRequest(
-      formData,
-      this.props.match.params.url,
-      this.props.fromUid
-    );
+
+  onSubmit = evt => {
+    evt.preventDefault();
+    if (this.state.dialogForm) {
+      this.setState({ dialogForm: "" });
+      this.props.addNewRequest(
+        this.state.dialogForm,
+        this.props.match.params.url,
+        this.props.fromUid
+      );
+    }
+  };
+  handleChange = evt => {
+    this.setState({ dialogForm: evt.target.value });
+  };
+  getEmoji = emoji => {
+    this.setState({
+      dialogForm: this.state.dialogForm + emoji
+    });
   };
 
   render() {
-    const {
-      userCompanion,
-      dialog,
-      handleSubmit,
-      getDialogIsFetching
-    } = this.props;
+    const { userCompanion, dialog, getDialogIsFetching } = this.props;
     return (
       <Chat
         pageMeta={{
@@ -61,12 +72,17 @@ class DialogContainer extends Component {
             <DialogHeaderUser userCompanion={userCompanion} />
           }
           dialogFormSection={
-            <DialogForm onSubmit={this.onSubmit} handleSubmit={handleSubmit} />
+            <DialogForm
+              onSubmit={this.onSubmit}
+              handleChange={this.handleChange}
+              dialogValue={this.state.dialogForm}
+              getEmoji={this.getEmoji}
+            />
           }
           dialogPostsSection={
             getDialogIsFetching === true ? (
               <div className={style.content}>
-              <ProgressCircular className={style.progressCenter} />
+                <ProgressCircular className={style.progressCenter} />
               </div>
             ) : (
               <DialogPosts dialog={dialog} userCompanion={userCompanion} />
@@ -93,8 +109,5 @@ export default compose(
     getUserRequest,
     addNewRequest,
     getDialogRequest
-  }),
-  reduxForm({
-    form: "dialog"
   })
 )(DialogContainer);
