@@ -6,24 +6,23 @@ import { ProgressLine } from "../common/Progress/Progress";
 import { AppContext } from "./withAuthenticationContext";
 
 const withAuthentication = Component => {
-  class WithAuthentication extends React.Component {
+  class WithAuthentication extends React.PureComponent {
     componentDidMount() {
       this.props.checkSessionRequest();
     }
-    componentWillUnmount() {
-      this.props.checkSessionRequest();
-    }
-    shouldComponentUpdate() {
-      return this.props.isAuthorized !== null;
-      // shouldComponentUpdate(nextProps, nextState) {
-      //   return this.props.isAuthorized !== nextProps.isAuthorized;
-      // }
-    }
-
     render() {
       const { isAuthorized, profileData } = this.props;
-      if (isAuthorized === null) return <ProgressLine />;
+      
+      console.log(isAuthorized)
 
+      if (
+        isAuthorized === null ||
+        (isAuthorized && Object.keys(profileData).length === 0)
+      ) {
+        return <ProgressLine />;
+      }
+
+      localStorage.setItem("authID", profileData.id);
       const globalContext = {
         isAuthorized: isAuthorized,
         profileData: profileData

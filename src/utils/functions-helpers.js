@@ -26,7 +26,7 @@ export const convertDate = value => {
   return `${date} в ${time}`;
 };
 
-export const getGroupChatId = (fromUid, userRoomID) => {
+export const getGroupChatId = (fromUid, userRoomID = '') => {
   if (hashString(fromUid) <= hashString(userRoomID)) {
     return `${fromUid}-${userRoomID}`;
   } else {

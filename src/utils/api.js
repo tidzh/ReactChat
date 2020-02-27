@@ -5,7 +5,7 @@ const auth = firebase.auth();
 const storage = firebase.storage();
 
 export const usersAPI = {
-  getUsers() {
+  getUsers(fromUid) {
     return db
       .collection("users")
       .get()
@@ -104,7 +104,6 @@ export const authAPI = {
 export const dialogAPI = {
   getDialog(userRoomID, fromUid) {
     const groupChatId = getGroupChatId(userRoomID, fromUid);
-
     return db
       .collection("chatrooms")
       .doc(groupChatId)
@@ -117,6 +116,32 @@ export const dialogAPI = {
         })
       );
   },
+
+  // getDialogListener(userRoomID, fromUid) {
+  //   const groupChatId = getGroupChatId(userRoomID, fromUid);
+  //   const unsubscribe = db.collection("chatrooms")
+  //       .doc(groupChatId)
+  //       .collection("messages")
+  //       .where("createdAt", ">", new Date())
+  //       .orderBy("createdAt", "desc")
+  //       .limit(1)
+  //       .onSnapshot(
+  //         {
+  //           // Listen for document metadata changes
+  //           includeMetadataChanges: true
+  //         },
+  //         querySnapshot => {
+  //           querySnapshot.docChanges().forEach(change => {
+  //             if (change.type === "added" && change.newIndex === 0) {
+  //               setDialog(5555)
+  //               return({ id: change.doc.id, ...change.doc.data() });
+  //             }
+  //           });
+  //         }
+  //       );
+  //   return unsubscribe
+  // },
+
   addNewMessage(formData, userRoomID, fromUid) {
     const groupChatId = getGroupChatId(userRoomID, fromUid);
     const newMessage = {

@@ -13,8 +13,8 @@ export const setUser = (data, isFetching) => ({
   isFetching
 });
 
-export const getUsersRequest = () => async dispatch => {
-  const data = await usersAPI.getUsers();
+export const getUsersRequest = fromUid => async dispatch => {
+  const data = await usersAPI.getUsers(fromUid);
   dispatch(setUsers(data, false));
 };
 export const getUserRequest = id => async dispatch => {
@@ -22,4 +22,7 @@ export const getUserRequest = id => async dispatch => {
   const data = await usersAPI.getUser(id);
   dispatch(setUser(data));
   dispatch(isFetching(false));
+};
+export const getLastMessageRequest = () => async dispatch => {
+console.log(444)
 };

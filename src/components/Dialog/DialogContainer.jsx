@@ -1,12 +1,10 @@
-import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
+import React, {Component} from "react";
 import { connect } from "react-redux";
 import { getUserCompanion } from "../../redux/selectors/user";
 import { Dialog } from "./Dialog";
-import { compose } from "redux";
 import { getUserRequest } from "../../redux/actions/users";
 import Chat from "../../pages/layout/Chat/Chat";
-import { getDialogRequest, addNewRequest } from "../../redux/actions/dialog";
+import {getDialogRequest, addNewRequest} from "../../redux/actions/dialog";
 import { getAuthUserId } from "../../redux/selectors/auth";
 import { dialogIsFetching, getDialog } from "../../redux/selectors/dialog";
 import DialogPosts from "./DialogPosts/DialogPosts";
@@ -14,15 +12,21 @@ import { ProgressCircular } from "../common/Progress/Progress";
 import DialogHeaderUser from "./DialogHeaderUser/DialogHeaderUser";
 import DialogForm from "./DialogForm/DialogForm";
 import style from "./Dialog.module.scss";
+import {newDialogListener} from "../../redux/actions/listeners";
 
 class DialogContainer extends Component {
   state = {
-    dialogForm: ""
+    dialogForm: "",
   };
 
   _instanceDialog() {
+    
     this.props.getUserRequest(this.props.match.params.url);
     this.props.getDialogRequest(
+      this.props.match.params.url,
+      this.props.fromUid
+    );
+    this.props.newDialogListener(
       this.props.match.params.url,
       this.props.fromUid
     );
@@ -31,7 +35,7 @@ class DialogContainer extends Component {
   componentDidMount() {
     this._instanceDialog();
   }
-
+  
   componentDidUpdate(prevProps) {
     if (this.props.match.params.url !== prevProps.match.params.url) {
       this._instanceDialog();
@@ -40,14 +44,12 @@ class DialogContainer extends Component {
 
   onSubmit = evt => {
     evt.preventDefault();
-    if (this.state.dialogForm) {
-      this.setState({ dialogForm: "" });
       this.props.addNewRequest(
         this.state.dialogForm,
         this.props.match.params.url,
         this.props.fromUid
       );
-    }
+    this.setState({ dialogForm: "" });
   };
   handleChange = evt => {
     this.setState({ dialogForm: evt.target.value });
@@ -103,11 +105,9 @@ const mapStateToProps = state => {
   };
 };
 
-export default compose(
-  withRouter,
-  connect(mapStateToProps, {
-    getUserRequest,
-    addNewRequest,
-    getDialogRequest
-  })
-)(DialogContainer);
+export default connect(mapStateToProps, {
+  getUserRequest,
+  addNewRequest,
+  getDialogRequest,
+  newDialogListener
+})(DialogContainer);

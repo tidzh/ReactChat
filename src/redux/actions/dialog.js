@@ -18,11 +18,15 @@ export const addNewRequest = (
   userRoomID,
   fromUid
 ) => async dispatch => {
-  const payload = await dialogAPI.addNewMessage(formData, userRoomID, fromUid);
-  dispatch(setDialog(payload));
+  await dialogAPI.addNewMessage(formData, userRoomID, fromUid);
+  // dispatch(setDialog(payload));
   dispatch(reset("dialog"));
 };
-export const getDialogRequest = (userRoomID, fromUid) => async dispatch => {
+
+export const getDialogRequest = (
+  userRoomID,
+  fromUid = ""
+) => async dispatch => {
   dispatch(dialogIsFetching(true));
   const payload = await dialogAPI.getDialog(userRoomID, fromUid);
   dispatch(getDialog(payload));
