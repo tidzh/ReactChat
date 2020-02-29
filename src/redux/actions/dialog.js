@@ -1,7 +1,7 @@
 import {
   DIALOG_GET,
   DIALOG_ADD_MESSAGE,
-  DIALOG_IS_FETCHING
+  DIALOG_IS_FETCHING,
 } from "../../constants/actions";
 import { dialogAPI } from "../../utils/api";
 import { reset } from "redux-form";
@@ -23,12 +23,11 @@ export const addNewRequest = (
   dispatch(reset("dialog"));
 };
 
-export const getDialogRequest = (
+export const getDialogHistoryRequest = (
   userRoomID,
   fromUid = ""
 ) => async dispatch => {
-  dispatch(dialogIsFetching(true));
   const payload = await dialogAPI.getDialog(userRoomID, fromUid);
   dispatch(getDialog(payload));
-  dispatch(dialogIsFetching(false));
+  dispatch(dialogIsFetching(true));
 };

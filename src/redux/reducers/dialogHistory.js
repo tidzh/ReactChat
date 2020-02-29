@@ -1,14 +1,14 @@
 import {
   DIALOG_GET,
   DIALOG_ADD_MESSAGE,
-  DIALOG_IS_FETCHING
+  DIALOG_IS_FETCHING,
 } from "../../constants/actions";
 
 const initialState = {
   posts: [],
-  dialogIsFetching: false
+  dialogIsFetching: false,
 };
-const Dialog = (state = initialState, action) => {
+const DialogHistory = (state = initialState, action) => {
   switch (action.type) {
     case DIALOG_IS_FETCHING:
       return { ...state, dialogIsFetching: action.fetching };
@@ -20,4 +20,4 @@ const Dialog = (state = initialState, action) => {
       return state;
   }
 };
-export default Dialog;
+export default DialogHistory;

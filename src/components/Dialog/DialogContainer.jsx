@@ -1,28 +1,27 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getUserCompanion } from "../../redux/selectors/user";
 import { Dialog } from "./Dialog";
 import { getUserRequest } from "../../redux/actions/users";
 import Chat from "../../pages/layout/Chat/Chat";
-import {getDialogRequest, addNewRequest} from "../../redux/actions/dialog";
+import { getDialogHistoryRequest, addNewRequest } from "../../redux/actions/dialog";
 import { getAuthUserId } from "../../redux/selectors/auth";
-import { dialogIsFetching, getDialog } from "../../redux/selectors/dialog";
-import DialogPosts from "./DialogPosts/DialogPosts";
+import {dialogIsFetching, getDialog} from "../../redux/selectors/dialogHistory";
+import DialogHistory from "./DialogHistory/DialogHistory";
 import { ProgressCircular } from "../common/Progress/Progress";
 import DialogHeaderUser from "./DialogHeaderUser/DialogHeaderUser";
 import DialogForm from "./DialogForm/DialogForm";
 import style from "./Dialog.module.scss";
-import {newDialogListener} from "../../redux/actions/listeners";
+import { newDialogListener } from "../../redux/actions/listeners";
 
 class DialogContainer extends Component {
   state = {
-    dialogForm: "",
+    dialogForm: ""
   };
-
+  
   _instanceDialog() {
-    
     this.props.getUserRequest(this.props.match.params.url);
-    this.props.getDialogRequest(
+    this.props.getDialogHistoryRequest(
       this.props.match.params.url,
       this.props.fromUid
     );
@@ -35,20 +34,20 @@ class DialogContainer extends Component {
   componentDidMount() {
     this._instanceDialog();
   }
-  
+
   componentDidUpdate(prevProps) {
     if (this.props.match.params.url !== prevProps.match.params.url) {
       this._instanceDialog();
     }
   }
-
+  
   onSubmit = evt => {
     evt.preventDefault();
-      this.props.addNewRequest(
-        this.state.dialogForm,
-        this.props.match.params.url,
-        this.props.fromUid
-      );
+    this.props.addNewRequest(
+      this.state.dialogForm,
+      this.props.match.params.url,
+      this.props.fromUid
+    );
     this.setState({ dialogForm: "" });
   };
   handleChange = evt => {
@@ -61,7 +60,7 @@ class DialogContainer extends Component {
   };
 
   render() {
-    const { userCompanion, dialog, getDialogIsFetching } = this.props;
+    const { userCompanion, dialog, getDialogIsFetching} = this.props;
     return (
       <Chat
         pageMeta={{
@@ -82,12 +81,12 @@ class DialogContainer extends Component {
             />
           }
           dialogPostsSection={
-            getDialogIsFetching === true ? (
+            getDialogIsFetching === false ? (
               <div className={style.content}>
                 <ProgressCircular className={style.progressCenter} />
               </div>
             ) : (
-              <DialogPosts dialog={dialog} userCompanion={userCompanion} />
+                <DialogHistory dialog={dialog} userCompanion={userCompanion} />
             )
           }
         />
@@ -108,6 +107,6 @@ const mapStateToProps = state => {
 export default connect(mapStateToProps, {
   getUserRequest,
   addNewRequest,
-  getDialogRequest,
+  getDialogHistoryRequest,
   newDialogListener
 })(DialogContainer);

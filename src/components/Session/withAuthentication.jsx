@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { checkSessionRequest } from "../../redux/actions/auth";
 import { getIsAuthorized, getProfileData } from "../../redux/selectors/auth";
 import { AppContext } from "./withAuthenticationContext";
+import { ProgressLine } from "../common/Progress/Progress";
 
 const withAuthentication = Component => {
   class WithAuthentication extends React.PureComponent {
@@ -16,8 +17,10 @@ const withAuthentication = Component => {
     }
     render() {
       const { isAuthorized, profileData } = this.props;
-      
-      
+      if (isAuthorized === null) {
+        return <ProgressLine />;
+      }
+
       const globalContext = {
         isAuthorized: isAuthorized,
         profileData: profileData

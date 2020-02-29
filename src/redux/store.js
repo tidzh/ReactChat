@@ -4,13 +4,13 @@ import { reducer as formReducer } from "redux-form";
 import Users from "./reducers/users";
 import User from "./reducers/user";
 import Auth from "./reducers/auth";
-import Dialog from "./reducers/dialog";
+import DialogHistory from "./reducers/dialogHistory";
 
 const reducers = combineReducers({
   auth: Auth,
   users: Users,
   user: User,
-  dialog: Dialog,
+  dialogHistory: DialogHistory,
   form: formReducer,
   
 });
