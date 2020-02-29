@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 import { checkSessionRequest } from "../../redux/actions/auth";
 import { getIsAuthorized, getProfileData } from "../../redux/selectors/auth";
-import { ProgressLine } from "../common/Progress/Progress";
 import { AppContext } from "./withAuthenticationContext";
 
 const withAuthentication = Component => {
@@ -10,19 +9,15 @@ const withAuthentication = Component => {
     componentDidMount() {
       this.props.checkSessionRequest();
     }
+    componentDidUpdate(prevProps) {
+      if (this.props.isAuthorized !== prevProps.isAuthorized) {
+        this.props.checkSessionRequest();
+      }
+    }
     render() {
       const { isAuthorized, profileData } = this.props;
       
-      console.log(isAuthorized)
-
-      if (
-        isAuthorized === null ||
-        (isAuthorized && Object.keys(profileData).length === 0)
-      ) {
-        return <ProgressLine />;
-      }
-
-      localStorage.setItem("authID", profileData.id);
+      
       const globalContext = {
         isAuthorized: isAuthorized,
         profileData: profileData

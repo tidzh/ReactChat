@@ -5,7 +5,7 @@ const auth = firebase.auth();
 const storage = firebase.storage();
 
 export const usersAPI = {
-  getUsers(fromUid) {
+  getUsers() {
     return db
       .collection("users")
       .get()
@@ -71,7 +71,7 @@ export const authAPI = {
     });
   },
   checkSession() {
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
       auth.onAuthStateChanged(authUser => {
         if (authUser) {
           db.collection("users")
@@ -79,7 +79,7 @@ export const authAPI = {
             .get()
             .then(doc => {
               const id = doc.id;
-              return resolve({
+              resolve({
                 id,
                 ...doc.data(),
                 emailVerified: authUser.emailVerified,
@@ -87,7 +87,7 @@ export const authAPI = {
               });
             });
         } else {
-          resolve(authUser);
+          reject(authUser);
         }
       });
     });

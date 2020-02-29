@@ -2,12 +2,11 @@ import React, { useContext } from "react";
 import { Route, Redirect } from "react-router-dom";
 import { HOME, SIGN_IN } from "../../constants/routes";
 import { AppContext } from "../Session/withAuthenticationContext";
+import { ProgressLine } from "../common/Progress/Progress";
 
 export const PublicRoute = ({ component: Component, restricted, ...rest }) => {
   const authed = useContext(AppContext);
   return (
-    // restricted = false meaning public route
-    // restricted = true meaning restricted route
     <Route
       {...rest}
       render={props =>
@@ -22,13 +21,18 @@ export const PublicRoute = ({ component: Component, restricted, ...rest }) => {
 };
 export const PrivateRoute = ({ component: Component, ...rest }) => {
   const authed = useContext(AppContext);
+  if (authed.isAuthorized === null) {
+    return <ProgressLine />;
+  }
   return (
-    // Show the component only when the user is logged in
-    // Otherwise, redirect the user to /signin page
     <Route
       {...rest}
       render={props =>
-        authed.isAuthorized ? <Component {...props} /> : <Redirect to={SIGN_IN} />
+        authed.isAuthorized ? (
+          <Component {...props} />
+        ) : (
+          <Redirect to={SIGN_IN} />
+        )
       }
     />
   );
