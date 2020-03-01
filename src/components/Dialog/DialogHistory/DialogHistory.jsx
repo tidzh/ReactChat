@@ -4,17 +4,16 @@ import { ImageAvatars } from "../../common/Avatars/Avatars";
 import classNames from "classnames";
 import { convertDate } from "../../../utils/functions-helpers";
 import { AppContext } from "../../Session/withAuthenticationContext";
-import {useWindowSize} from "../../common/WindowSize/WindowSize";
+import { useWindowSize } from "../../common/WindowSize/WindowSize";
 
 const DialogHistory = ({ dialog, userCompanion: { photoURL } }) => {
-  const messagesEndRef = useRef(null);
   const size = useWindowSize();
-  const scrollToBottom = () => {
-    messagesEndRef.current.scrollIntoView({block: "center", behavior: "smooth"});
-  };
-  useEffect(scrollToBottom, [dialog]);
-  
-  
+  const scrollToBottom = useRef(null);
+
+  useEffect(() => {
+    scrollToBottom.current.scrollTop = scrollToBottom.current.scrollHeight;
+  });
+
   const authed = useContext(AppContext);
   const posts = dialog.map(post => {
     return (
@@ -45,13 +44,18 @@ const DialogHistory = ({ dialog, userCompanion: { photoURL } }) => {
   return (
     <>
       {posts.length > 0 ? (
-        <div className={style.root} style={{"height":size.height-139}}>{posts}</div>
+        <div
+          ref={scrollToBottom}
+          className={style.root}
+          style={{ maxHeight: size.height - 139 }}
+        >
+          {posts}
+        </div>
       ) : (
         <div className={style.default}>
           Здесь будет выводиться история переписки.
         </div>
       )}
-      <div ref={messagesEndRef}/>
     </>
   );
 };

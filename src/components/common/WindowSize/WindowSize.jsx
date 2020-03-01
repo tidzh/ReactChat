@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 
 export const useWindowSize = () => {
   const isClient = typeof window === "object";
@@ -17,13 +17,13 @@ export const useWindowSize = () => {
       return false;
     }
 
-    function handleResize() {
+    const handleResize = () => {
       setWindowSize(getSize());
-    }
+    };
 
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  });
 
   return windowSize;
 };

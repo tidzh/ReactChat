@@ -20,7 +20,7 @@ const withAuthentication = Component => {
       if (isAuthorized === null) {
         return <ProgressLine />;
       }
-
+      
       const globalContext = {
         isAuthorized: isAuthorized,
         profileData: profileData

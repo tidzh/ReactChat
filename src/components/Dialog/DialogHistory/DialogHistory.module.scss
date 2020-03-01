@@ -1,10 +1,10 @@
 .root {
-  //position: absolute;
-  overflow: scroll;
-  //flex: 1 1;
-  //height: calc(100% - 57px);
-  //width: 100%;
+  overflow: auto;
   padding: 35px 35px 0 35px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-height: 350px;
 
 }
 .default {

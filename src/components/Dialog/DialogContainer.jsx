@@ -4,9 +4,15 @@ import { getUserCompanion } from "../../redux/selectors/user";
 import { Dialog } from "./Dialog";
 import { getUserRequest } from "../../redux/actions/users";
 import Chat from "../../pages/layout/Chat/Chat";
-import { getDialogHistoryRequest, addNewRequest } from "../../redux/actions/dialog";
+import {
+  getDialogHistoryRequest,
+  addNewRequest
+} from "../../redux/actions/dialog";
 import { getAuthUserId } from "../../redux/selectors/auth";
-import {dialogIsFetching, getDialog} from "../../redux/selectors/dialogHistory";
+import {
+  dialogIsFetching,
+  getDialog
+} from "../../redux/selectors/dialogHistory";
 import DialogHistory from "./DialogHistory/DialogHistory";
 import { ProgressCircular } from "../common/Progress/Progress";
 import DialogHeaderUser from "./DialogHeaderUser/DialogHeaderUser";
@@ -41,6 +47,11 @@ class DialogContainer extends Component {
     }
   }
   
+  scrollToBottom() {
+    const {thing} = this.refs;
+    thing.scrollTop = thing.scrollHeight - thing.clientHeight;
+  }
+
   onSubmit = evt => {
     evt.preventDefault();
     this.props.addNewRequest(
@@ -60,7 +71,7 @@ class DialogContainer extends Component {
   };
 
   render() {
-    const { userCompanion, dialog, getDialogIsFetching} = this.props;
+    const { userCompanion, dialog, getDialogIsFetching } = this.props;
     return (
       <Chat
         pageMeta={{
@@ -81,7 +92,7 @@ class DialogContainer extends Component {
             />
           }
           dialogPostsSection={
-            getDialogIsFetching === false ? (
+            !getDialogIsFetching ? (
               <div className={style.content}>
                 <ProgressCircular className={style.progressCenter} />
               </div>
