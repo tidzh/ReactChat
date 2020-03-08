@@ -58,9 +58,9 @@ export const checkSessionRequest = () => async dispatch => {
     dispatch(setSessionUser(false));
   }
 };
-export const signOutUserRequest = () => async dispatch => {
+export const signOutUserRequest = authUserId => async dispatch => {
   try {
-    await authAPI.signOutUser();
+    await authAPI.signOutUser(authUserId);
     dispatch(setSessionUser(false));
     dispatch(setUserInfo({}));
   } catch (error) {

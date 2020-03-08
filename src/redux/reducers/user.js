@@ -10,7 +10,7 @@ const User = (state = initialState, action) => {
     case SET_USER:
       return {
         ...state,
-        user: action.data
+        user: action.payload
       };
     case IS_FETCHING:
       return { ...state, isFetching: action.fetching };

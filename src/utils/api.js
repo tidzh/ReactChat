@@ -5,16 +5,36 @@ const auth = firebase.auth();
 const storage = firebase.storage();
 
 export const usersAPI = {
-  getUsers() {
+  getAllUsers() {
     return db
       .collection("users")
       .get()
       .then(querySnapshot =>
         querySnapshot.docs.map(doc => {
-          const id = doc.id;
-          return { id, ...doc.data() };
+          return { id: doc.id, ...doc.data() };
         })
       );
+  },
+  getUsersDialog(fromUid) {
+    return db
+      .collection("relations")
+      .doc(fromUid)
+      .collection("users")
+      .get()
+      .then(querySnapshot => {
+        const promisesRefs = [];
+        querySnapshot.docs.forEach(doc => {
+          const newItem = doc.data();
+          promisesRefs.push(newItem.userRef.get());
+        });
+        return Promise.all(promisesRefs).then(snapshots => {
+          const usersList = [];
+          snapshots.forEach(res => {
+            usersList.push({ id: res.id, ...res.data() });
+          });
+          return usersList;
+        });
+      });
   },
   getUser(userId) {
     return db
@@ -22,8 +42,7 @@ export const usersAPI = {
       .doc(userId)
       .get()
       .then(doc => {
-        const id = doc.id;
-        return { id, ...doc.data() };
+        return { id: doc.id, ...doc.data() };
       });
   }
 };
@@ -64,11 +83,31 @@ export const authAPI = {
         })
         .then(
           user => {
+            db.collection("users")
+              .doc(user.uid)
+              .update({
+                status: true
+              });
             resolve(user);
           },
           err => reject(err)
         );
     });
+  },
+  signOutUser(userId) {
+    auth
+      .signOut()
+      .then(() => {
+        db.collection("users")
+          .doc(userId)
+          .update({
+            lastSignOutTime: getTimestamp(),
+            status: false
+          });
+      })
+      .catch(error => {
+        console.log(error);
+      });
   },
   checkSession() {
     return new Promise((resolve, reject) => {
@@ -91,14 +130,6 @@ export const authAPI = {
         }
       });
     });
-  },
-  signOutUser() {
-    auth
-      .signOut()
-      .then(() => {})
-      .catch(error => {
-        console.log(error);
-      });
   }
 };
 export const dialogAPI = {
@@ -116,31 +147,19 @@ export const dialogAPI = {
         })
       );
   },
-
-  // getDialogListener(userRoomID, fromUid) {
-  //   const groupChatId = getGroupChatId(userRoomID, fromUid);
-  //   const unsubscribe = db.collection("chatrooms")
-  //       .doc(groupChatId)
-  //       .collection("messages")
-  //       .where("createdAt", ">", new Date())
-  //       .orderBy("createdAt", "desc")
-  //       .limit(1)
-  //       .onSnapshot(
-  //         {
-  //           // Listen for document metadata changes
-  //           includeMetadataChanges: true
-  //         },
-  //         querySnapshot => {
-  //           querySnapshot.docChanges().forEach(change => {
-  //             if (change.type === "added" && change.newIndex === 0) {
-  //               setDialog(5555)
-  //               return({ id: change.doc.id, ...change.doc.data() });
-  //             }
-  //           });
-  //         }
-  //       );
-  //   return unsubscribe
-  // },
+  setNewRelation(userRoomID, fromUid) {
+    db.collection("relations")
+      .doc(userRoomID)
+      .collection("users")
+      .doc(fromUid)
+      .set({ userRef: db.collection("users").doc(fromUid) });
+    return db
+      .collection("relations")
+      .doc(fromUid)
+      .collection("users")
+      .doc(userRoomID)
+      .set({ userRef: db.collection("users").doc(userRoomID) });
+  },
 
   addNewMessage(formData, userRoomID, fromUid) {
     const groupChatId = getGroupChatId(userRoomID, fromUid);

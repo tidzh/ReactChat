@@ -1,28 +1,48 @@
 import { usersAPI } from "../../utils/api";
-import { SET_USER, SET_USERS } from "../../constants/actions";
+import {
+  FETCHING_DIALOG_IS_USERS,
+  FETCHING_IS_USERS,
+  SET_ALL_USERS,
+  SET_DIALOG_USERS,
+  SET_USER
+} from "../../constants/actions";
 import { isFetching } from "./actions-helpers";
 
-export const setUsers = (data, isFetching) => ({
-  type: SET_USERS,
-  data,
-  isFetching
+export const setAllUsers = payload => ({
+  type: SET_ALL_USERS,
+  payload
 });
-export const setUser = (data, isFetching) => ({
+export const setDialogUsers = payload => ({
+  type: SET_DIALOG_USERS,
+  payload
+});
+export const isFetchingUsers = fetching => ({
+  type: FETCHING_IS_USERS,
+  fetching
+});
+export const isFetchingDialogUsers = fetching => ({
+  type: FETCHING_DIALOG_IS_USERS,
+  fetching
+});
+export const setUser = (payload, isFetching) => ({
   type: SET_USER,
-  data,
+  payload,
   isFetching
 });
 
-export const getUsersRequest = fromUid => async dispatch => {
-  const data = await usersAPI.getUsers(fromUid);
-  dispatch(setUsers(data, false));
+export const getUsersRequest = () => async dispatch => {
+  const payload = await usersAPI.getAllUsers();
+  dispatch(setAllUsers(payload));
+  dispatch(isFetchingUsers(true));
+};
+export const getUsersDialogRequest = fromUid => async dispatch => {
+  const payload = await usersAPI.getUsersDialog(fromUid);
+  dispatch(setDialogUsers(payload));
+  dispatch(isFetchingDialogUsers(true));
 };
 export const getUserRequest = id => async dispatch => {
   dispatch(isFetching(true));
-  const data = await usersAPI.getUser(id);
-  dispatch(setUser(data));
+  const payload = await usersAPI.getUser(id);
+  dispatch(setUser(payload));
   dispatch(isFetching(false));
-};
-export const getLastMessageRequest = () => async dispatch => {
-console.log(444)
 };

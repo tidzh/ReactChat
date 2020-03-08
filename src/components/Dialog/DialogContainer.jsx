@@ -6,7 +6,8 @@ import { getUserRequest } from "../../redux/actions/users";
 import Chat from "../../pages/layout/Chat/Chat";
 import {
   getDialogHistoryRequest,
-  addNewRequest
+  addNewMessageRequest,
+  setNewRelationRequest
 } from "../../redux/actions/dialog";
 import { getAuthUserId } from "../../redux/selectors/auth";
 import {
@@ -24,7 +25,7 @@ class DialogContainer extends Component {
   state = {
     dialogForm: ""
   };
-  
+
   _instanceDialog() {
     this.props.getUserRequest(this.props.match.params.url);
     this.props.getDialogHistoryRequest(
@@ -46,16 +47,15 @@ class DialogContainer extends Component {
       this._instanceDialog();
     }
   }
-  
-  scrollToBottom() {
-    const {thing} = this.refs;
-    thing.scrollTop = thing.scrollHeight - thing.clientHeight;
-  }
 
   onSubmit = evt => {
     evt.preventDefault();
-    this.props.addNewRequest(
+    this.props.addNewMessageRequest(
       this.state.dialogForm,
+      this.props.match.params.url,
+      this.props.fromUid
+    );
+    this.props.setNewRelationRequest(
       this.props.match.params.url,
       this.props.fromUid
     );
@@ -80,7 +80,7 @@ class DialogContainer extends Component {
         }}
       >
         <Dialog
-          dialogHeaderUserSection={
+          dialogHistoryUserSection={
             <DialogHeaderUser userCompanion={userCompanion} />
           }
           dialogFormSection={
@@ -97,7 +97,7 @@ class DialogContainer extends Component {
                 <ProgressCircular className={style.progressCenter} />
               </div>
             ) : (
-                <DialogHistory dialog={dialog} userCompanion={userCompanion} />
+              <DialogHistory dialog={dialog} userCompanion={userCompanion} />
             )
           }
         />
@@ -117,7 +117,8 @@ const mapStateToProps = state => {
 
 export default connect(mapStateToProps, {
   getUserRequest,
-  addNewRequest,
+  addNewMessageRequest,
   getDialogHistoryRequest,
-  newDialogListener
+  newDialogListener,
+  setNewRelationRequest
 })(DialogContainer);

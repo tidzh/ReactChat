@@ -5,8 +5,15 @@ import { getIsAuthorized, getProfileData } from "../../redux/selectors/auth";
 import { AppContext } from "./withAuthenticationContext";
 import { ProgressLine } from "../common/Progress/Progress";
 
+const mapStateToProps = state => {
+  return {
+    isAuthorized: getIsAuthorized(state),
+    profileData: getProfileData(state)
+  };
+};
+
 const withAuthentication = Component => {
-  class WithAuthentication extends React.PureComponent {
+  class WithAuthenticationComponent extends React.PureComponent {
     componentDidMount() {
       this.props.checkSessionRequest();
     }
@@ -32,12 +39,6 @@ const withAuthentication = Component => {
       );
     }
   }
-  const mapStateToProps = state => {
-    return {
-      isAuthorized: getIsAuthorized(state),
-      profileData: getProfileData(state)
-    };
-  };
-  return connect(mapStateToProps, { checkSessionRequest })(WithAuthentication);
+  return connect(mapStateToProps, { checkSessionRequest })(WithAuthenticationComponent);
 };
 export default withAuthentication;

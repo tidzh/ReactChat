@@ -3,18 +3,31 @@ import style from "../../HomePage/HomePage.module.scss";
 import Container from "@material-ui/core/Container";
 import Aside from "../../../components/Aside/Aside";
 import Search from "../../../components/Search/Search";
-import UsersListContainer from "../../../components/Users/UsersList/UsersListContainer";
-import SettingsContainer from "../../../components/Settings/SettingsContainer";
+import UsersListContainer from "../../../components/UsersList/UsersListContainer";
 import Profile from "../../../components/Profile/Profile";
+import ToolbarContainer from "../../../components/Toolbar/ToolbarContainer";
 import { Helmet } from "react-helmet";
 
 const Chat = ({
   children,
   pageMeta: { title = "", description = "" } = ""
 }) => {
-  const [toggleSettings, setToggleSettings] = useState(false);
-  const handlerToggleSettings = () => {
-    setToggleSettings(!toggleSettings);
+  const [toggleToolbarActive, setToggleToolbarActive] = useState("userDialog");
+  const handlerToggleSettings = activeElement => {
+    setToggleToolbarActive(activeElement);
+  };
+
+  const toolbarActive = toggleToolbarActive => {
+    switch (toggleToolbarActive) {
+      case "userDialog":
+        return <UsersListContainer lastDialog={true} />;
+      case "userList":
+        return <UsersListContainer lastDialog={false} />;
+      case "userSettings":
+        return <Profile />;
+      default:
+        return <UsersListContainer />;
+    }
   };
   return (
     <>
@@ -28,11 +41,11 @@ const Chat = ({
             <div className={style.chat}>
               <Aside
                 search={<Search />}
-                main={toggleSettings ? <Profile /> : <UsersListContainer />}
-                settings={
-                  <SettingsContainer
-                    settingTrigger={handlerToggleSettings}
-                    toggleSettings={toggleSettings}
+                main={toolbarActive(toggleToolbarActive)}
+                toolbar={
+                  <ToolbarContainer
+                    toolbarActiveTrigger={handlerToggleSettings}
+                    toggleToolbarActive={toggleToolbarActive}
                   />
                 }
               />

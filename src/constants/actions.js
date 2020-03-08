@@ -1,7 +1,10 @@
 // USERS LIST
 
-export const SET_USERS = "SET_USERS";
+export const SET_ALL_USERS = "SET_ALL_USERS";
+export const SET_DIALOG_USERS = "SET_DIALOG_USERS";
 export const SET_USER = "SET_USER";
+export const FETCHING_IS_USERS = "IS_FETCHING_USERS";
+export const FETCHING_DIALOG_IS_USERS = "FETCHING_DIALOG_IS_USERS";
 
 // HELPERS
 

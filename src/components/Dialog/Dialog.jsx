@@ -5,12 +5,12 @@ import Box from "@material-ui/core/Box";
 
 export const Dialog = ({
   dialogPostsSection,
-  dialogHeaderUserSection,
+  dialogHistoryUserSection,
   dialogFormSection
 }) => {
   return (
     <>
-      {dialogHeaderUserSection}
+      {dialogHistoryUserSection}
       <div className={style.content}>
         {dialogPostsSection}
         {dialogFormSection}

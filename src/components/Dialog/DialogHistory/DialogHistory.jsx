@@ -11,7 +11,9 @@ const DialogHistory = ({ dialog, userCompanion: { photoURL } }) => {
   const scrollToBottom = useRef(null);
 
   useEffect(() => {
-    scrollToBottom.current.scrollTop = scrollToBottom.current.scrollHeight;
+    if (scrollToBottom.current) {
+      scrollToBottom.current.scrollTop = scrollToBottom.current.scrollHeight;
+    }
   });
 
   const authed = useContext(AppContext);

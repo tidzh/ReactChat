@@ -2,10 +2,13 @@ import React from "react";
 import style from "./UsersList.module.scss";
 import { Box } from "@material-ui/core";
 import CheckIcon from "@material-ui/icons/Check";
-import { BadgeAvatars, ImageAvatars } from "../../common/Avatars/Avatars";
+import { BadgeAvatars, ImageAvatars } from "../common/Avatars/Avatars";
 import { NavLink } from "react-router-dom";
+import { convertDate } from "../../utils/functions-helpers";
 
-const UsersListItem = ({ user: { id, photoURL, displayName, status, verif } }) => {
+const UsersListItem = ({
+  user: { id, photoURL, displayName, status, verif, lastSignOutTime }
+}) => {
   return (
     <Box className={style.item}>
       <Box
@@ -16,7 +19,11 @@ const UsersListItem = ({ user: { id, photoURL, displayName, status, verif } }) =
         component={NavLink}
         to={`/dialog/${id}`}
       >
-        {status ? <BadgeAvatars src={photoURL} /> : <ImageAvatars src={photoURL} />}
+        {status ? (
+          <BadgeAvatars src={photoURL} />
+        ) : (
+          <ImageAvatars src={photoURL} />
+        )}
         <div className={style.info}>
           <div className={style.name}>
             <span>{displayName}</span>
@@ -26,7 +33,12 @@ const UsersListItem = ({ user: { id, photoURL, displayName, status, verif } }) =
               </span>
             )}
           </div>
-          <div className={style.text__preview}>Мы все свидетельствуем …</div>
+          <div className={style.text__preview}>
+            {status
+              ? "В сети"
+              : lastSignOutTime.seconds &&
+                `Был(а) в сети ${convertDate(lastSignOutTime.seconds)}`}
+          </div>
         </div>
       </Box>
     </Box>
@@ -37,8 +49,6 @@ const UsersList = ({ usersList }) => {
   const users = usersList.map(user => (
     <UsersListItem key={user.id} user={user} />
   ));
-  return (
-    <div className={style.root}>{users}</div>
-  );
+  return <div className={style.root}>{users}</div>;
 };
 export default UsersList;

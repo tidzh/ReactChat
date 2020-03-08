@@ -13,7 +13,7 @@ export const dialogIsFetching = fetching => ({
   fetching
 });
 
-export const addNewRequest = (
+export const addNewMessageRequest = (
   formData,
   userRoomID,
   fromUid
@@ -30,4 +30,7 @@ export const getDialogHistoryRequest = (
   const payload = await dialogAPI.getDialog(userRoomID, fromUid);
   dispatch(getDialog(payload));
   dispatch(dialogIsFetching(true));
+};
+export const setNewRelationRequest = (userRoomID, fromUid) => async dispatch => {
+  await dialogAPI.setNewRelation(userRoomID, fromUid);
 };
