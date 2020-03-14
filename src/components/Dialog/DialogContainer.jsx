@@ -6,8 +6,7 @@ import { getUserRequest } from "../../redux/actions/users";
 import Chat from "../../pages/layout/Chat/Chat";
 import {
   getDialogHistoryRequest,
-  addNewMessageRequest,
-  setNewRelationRequest
+  addNewMessageRequest
 } from "../../redux/actions/dialog";
 import { getAuthUserId } from "../../redux/selectors/auth";
 import {
@@ -19,7 +18,7 @@ import { ProgressCircular } from "../common/Progress/Progress";
 import DialogHeaderUser from "./DialogHeaderUser/DialogHeaderUser";
 import DialogForm from "./DialogForm/DialogForm";
 import style from "./Dialog.module.scss";
-import { newDialogListener } from "../../redux/actions/listeners";
+import { dialogListenerRequest } from "../../redux/actions/listeners";
 
 class DialogContainer extends Component {
   state = {
@@ -32,7 +31,7 @@ class DialogContainer extends Component {
       this.props.match.params.url,
       this.props.fromUid
     );
-    this.props.newDialogListener(
+    this.props.dialogListenerRequest(
       this.props.match.params.url,
       this.props.fromUid
     );
@@ -52,10 +51,6 @@ class DialogContainer extends Component {
     evt.preventDefault();
     this.props.addNewMessageRequest(
       this.state.dialogForm,
-      this.props.match.params.url,
-      this.props.fromUid
-    );
-    this.props.setNewRelationRequest(
       this.props.match.params.url,
       this.props.fromUid
     );
@@ -119,6 +114,5 @@ export default connect(mapStateToProps, {
   getUserRequest,
   addNewMessageRequest,
   getDialogHistoryRequest,
-  newDialogListener,
-  setNewRelationRequest
+  dialogListenerRequest
 })(DialogContainer);

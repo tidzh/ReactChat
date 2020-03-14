@@ -1,5 +1,5 @@
 import firebase from "../components/Firebase/Firebase";
-import { getGroupChatId, getTimestamp } from "./functions-helpers";
+import { getGroupChatId, getTimestamp, splitUserId } from "./functions-helpers";
 const db = firebase.firestore();
 const auth = firebase.auth();
 const storage = firebase.storage();
@@ -11,29 +11,25 @@ export const usersAPI = {
       .get()
       .then(querySnapshot =>
         querySnapshot.docs.map(doc => {
-          return { id: doc.id, ...doc.data() };
+          return { uid: doc.id, ...doc.data() };
         })
       );
   },
   getUsersDialog(fromUid) {
     return db
-      .collection("relations")
-      .doc(fromUid)
-      .collection("users")
+      .collection("chatrooms2")
       .get()
       .then(querySnapshot => {
         const promisesRefs = [];
         querySnapshot.docs.forEach(doc => {
-          const newItem = doc.data();
-          promisesRefs.push(newItem.userRef.get());
+          if (doc.id.includes(fromUid)) {
+            const data = doc.data();
+            const lastMessages = data.messages[data.messages.length - 1];
+            const user = splitUserId(doc.id).filter(item => item !== fromUid);
+            promisesRefs.push({ ...lastMessages, uid: user[0], whoId: lastMessages.uid === fromUid && true });
+          }
         });
-        return Promise.all(promisesRefs).then(snapshots => {
-          const usersList = [];
-          snapshots.forEach(res => {
-            usersList.push({ id: res.id, ...res.data() });
-          });
-          return usersList;
-        });
+        return promisesRefs;
       });
   },
   getUser(userId) {
@@ -133,48 +129,39 @@ export const authAPI = {
   }
 };
 export const dialogAPI = {
-  getDialog(userRoomID, fromUid) {
+  getHistory(userRoomID, fromUid) {
     const groupChatId = getGroupChatId(userRoomID, fromUid);
     return db
-      .collection("chatrooms")
+      .collection("chatrooms2")
       .doc(groupChatId)
-      .collection("messages")
       .get()
-      .then(querySnapshot =>
-        querySnapshot.docs.map(doc => {
-          const id = doc.id;
-          return { id, ...doc.data() };
-        })
-      );
-  },
-  setNewRelation(userRoomID, fromUid) {
-    db.collection("relations")
-      .doc(userRoomID)
-      .collection("users")
-      .doc(fromUid)
-      .set({ userRef: db.collection("users").doc(fromUid) });
-    return db
-      .collection("relations")
-      .doc(fromUid)
-      .collection("users")
-      .doc(userRoomID)
-      .set({ userRef: db.collection("users").doc(userRoomID) });
+      .then(res => {
+        if (res.data() !== undefined) {
+          return Object.values(res.data().messages);
+        } else {
+          return [];
+        }
+      });
   },
 
   addNewMessage(formData, userRoomID, fromUid) {
     const groupChatId = getGroupChatId(userRoomID, fromUid);
     const newMessage = {
-      toUid: userRoomID,
-      fromUid: fromUid,
-      message: formData,
+      uid: fromUid,
+      content: formData,
       createdAt: getTimestamp()
     };
-    db.collection("chatrooms")
+    db.collection("chatrooms2")
       .doc(groupChatId)
-      .collection("messages")
-      .doc(getTimestamp().seconds.toString())
-      .set(newMessage);
-    return { id: getTimestamp().seconds.toString(), ...newMessage };
+      .update({
+        messages: firebase.firestore.FieldValue.arrayUnion(newMessage)
+      })
+      .catch(() => {
+        db.collection("chatrooms2")
+          .doc(groupChatId)
+          .set({ messages: [newMessage] });
+      });
+    return { id: getTimestamp().nanoseconds.toString(), ...newMessage };
   }
 };
 export const uploadFileAPI = {

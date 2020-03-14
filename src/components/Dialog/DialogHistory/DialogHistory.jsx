@@ -15,26 +15,25 @@ const DialogHistory = ({ dialog, userCompanion: { photoURL } }) => {
       scrollToBottom.current.scrollTop = scrollToBottom.current.scrollHeight;
     }
   });
-
+  
   const authed = useContext(AppContext);
-  const posts = dialog.map(post => {
+  const posts = dialog.map((post, index) => {
     return (
-      <div key={post.id} className={style.item}>
+      <div key={index} className={style.item}>
         <div
           className={classNames(style.wrap, {
-            [`${style.wrapAnswer}`]:
-              post.fromUid !== authed.profileData.id && true
+            [`${style.wrapAnswer}`]: post.uid !== authed.profileData.id && true
           })}
         >
           <div className={style.avatar}>
-            {post.fromUid === authed.profileData.id ? (
+            {post.uid === authed.profileData.id ? (
               <ImageAvatars src={authed.profileData.photoURL} />
             ) : (
               <ImageAvatars src={photoURL} />
             )}
           </div>
           <div className={style.info}>
-            <div className={style.text}>{post.message}</div>
+            <div className={style.text}>{post.content}</div>
             <div className={style.date}>
               {convertDate(post.createdAt.seconds)}
             </div>

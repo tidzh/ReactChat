@@ -30,8 +30,8 @@ export const setUser = (payload, isFetching) => ({
   isFetching
 });
 
-export const getUsersRequest = () => async dispatch => {
-  const payload = await usersAPI.getAllUsers();
+export const getUsersRequest = (fromUid) => async dispatch => {
+  const payload = await usersAPI.getAllUsers(fromUid);
   dispatch(setAllUsers(payload));
   dispatch(isFetchingUsers(true));
 };

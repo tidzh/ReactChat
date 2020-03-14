@@ -10,6 +10,7 @@
 }
 
 .link {
+  position: relative;
   text-decoration: none;
   padding: 16px 20px;
 }
@@ -20,6 +21,7 @@
 
 .info {
   margin-left: 10px;
+  width: calc(100% - 50px);
 }
 
 .name {
@@ -30,15 +32,32 @@
   margin-bottom: 5px;
   display: flex;
   align-items: center;
+  span {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    padding-right: 75px;
+  }
 }
 
 .text__preview {
-  font-size: 14px;
+  font-size: 13px;
   color: #a6a6a6;
   font-weight: 300;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .verif {
   color: #0c8fe4;
   margin-left: 5px;
+}
+.createdAt {
+  position: absolute;
+  font-size: 12px;
+  right: 20px;
+  top: 18px;
+  font-weight: normal;
+  color: #A6A6A6;
 }

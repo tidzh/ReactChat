@@ -7,6 +7,7 @@ import {
 
 const initialState = {
   usersList: [],
+  lastMessage: [],
   isFetching: false,
   isFetchingDialogUser: false
 };
@@ -21,7 +22,7 @@ const Users = (state = initialState, action) => {
     case SET_DIALOG_USERS:
       return {
         ...state,
-        usersList: action.payload
+        lastMessage: action.payload
       };
     case FETCHING_IS_USERS:
       return { ...state, isFetching: action.fetching };

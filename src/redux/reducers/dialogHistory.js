@@ -1,7 +1,7 @@
 import {
-  DIALOG_GET,
+  HISTORY_SET,
   DIALOG_ADD_MESSAGE,
-  DIALOG_IS_FETCHING,
+  HISTORY_IS_FETCHING,
 } from "../../constants/actions";
 
 const initialState = {
@@ -10,9 +10,9 @@ const initialState = {
 };
 const DialogHistory = (state = initialState, action) => {
   switch (action.type) {
-    case DIALOG_IS_FETCHING:
+    case HISTORY_IS_FETCHING:
       return { ...state, dialogIsFetching: action.fetching };
-    case DIALOG_GET:
+    case HISTORY_SET:
       return { ...state, posts: action.payload };
     case DIALOG_ADD_MESSAGE:
       return { ...state, posts: [...state.posts, { ...action.payload }] };

@@ -4,7 +4,8 @@ import { connect } from "react-redux";
 import {
   getCurrentUsers,
   getIsFetching,
-  getIsFetchingDialogUser
+  getIsFetchingDialogUser,
+  getUsersListDialogs
 } from "../../redux/selectors/users";
 import {
   getUsersDialogRequest,
@@ -15,21 +16,23 @@ import { getAuthUserId } from "../../redux/selectors/auth";
 
 class UsersListContainer extends Component {
   componentDidMount() {
+    this.props.getUsersRequest(this.props.fromUid);
     this.props.getUsersDialogRequest(this.props.fromUid);
   }
-  componentDidUpdate(prevProps, prevState) {
-    if (this.props.lastDialog !== prevProps.lastDialog) {
-      if (this.props.lastDialog === true) {
-        this.props.getUsersDialogRequest(this.props.fromUid);
-      } else {
-        this.props.getUsersRequest();
-      }
-    }
-  }
   render() {
-    const { usersList, isFetching, isFetchingDialogUser } = this.props;
+    const {
+      usersList,
+      isFetching,
+      isFetchingDialogUser,
+      usersListDialogs,
+      userListType
+    } = this.props;
     if (!isFetching && !isFetchingDialogUser) return <ProgressCircular />;
-    return <UsersList usersList={usersList} />;
+    return (
+      <UsersList
+        usersList={userListType === "userDialog" ? usersListDialogs : usersList}
+      />
+    );
   }
 }
 
@@ -37,6 +40,7 @@ const mapStateToProps = state => {
   return {
     fromUid: getAuthUserId(state),
     usersList: getCurrentUsers(state),
+    usersListDialogs: getUsersListDialogs(state),
     isFetching: getIsFetching(state),
     isFetchingDialogUser: getIsFetchingDialogUser(state)
   };

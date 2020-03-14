@@ -1,15 +1,15 @@
 import {
-  DIALOG_GET,
+  HISTORY_SET,
   DIALOG_ADD_MESSAGE,
-  DIALOG_IS_FETCHING,
+  HISTORY_IS_FETCHING
 } from "../../constants/actions";
 import { dialogAPI } from "../../utils/api";
 import { reset } from "redux-form";
 
-export const getDialog = payload => ({ type: DIALOG_GET, payload });
+export const setHistory = payload => ({ type: HISTORY_SET, payload });
 export const setDialog = payload => ({ type: DIALOG_ADD_MESSAGE, payload });
 export const dialogIsFetching = fetching => ({
-  type: DIALOG_IS_FETCHING,
+  type: HISTORY_IS_FETCHING,
   fetching
 });
 
@@ -18,8 +18,8 @@ export const addNewMessageRequest = (
   userRoomID,
   fromUid
 ) => async dispatch => {
-  await dialogAPI.addNewMessage(formData, userRoomID, fromUid);
-  // dispatch(setDialog(payload));
+  const payload = await dialogAPI.addNewMessage(formData, userRoomID, fromUid);
+  dispatch(setDialog(payload));
   dispatch(reset("dialog"));
 };
 
@@ -27,10 +27,7 @@ export const getDialogHistoryRequest = (
   userRoomID,
   fromUid = ""
 ) => async dispatch => {
-  const payload = await dialogAPI.getDialog(userRoomID, fromUid);
-  dispatch(getDialog(payload));
+  const payload = await dialogAPI.getHistory(userRoomID, fromUid);
+  dispatch(setHistory(payload));
   dispatch(dialogIsFetching(true));
-};
-export const setNewRelationRequest = (userRoomID, fromUid) => async dispatch => {
-  await dialogAPI.setNewRelation(userRoomID, fromUid);
 };

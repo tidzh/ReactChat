@@ -9,9 +9,11 @@ body {
 }
 
 *,
-:after {
-  box-sizing: border-box;
+*::before,
+*::after {
+  box-sizing: border-box; // 1
 }
+
 
 :focus {
   outline: none;

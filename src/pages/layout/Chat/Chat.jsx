@@ -19,14 +19,10 @@ const Chat = ({
 
   const toolbarActive = toggleToolbarActive => {
     switch (toggleToolbarActive) {
-      case "userDialog":
-        return <UsersListContainer lastDialog={true} />;
-      case "userList":
-        return <UsersListContainer lastDialog={false} />;
       case "userSettings":
         return <Profile />;
       default:
-        return <UsersListContainer />;
+        return <UsersListContainer userListType={toggleToolbarActive} />;
     }
   };
   return (

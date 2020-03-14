@@ -7,17 +7,28 @@ import { NavLink } from "react-router-dom";
 import { convertDate } from "../../utils/functions-helpers";
 
 const UsersListItem = ({
-  user: { id, photoURL, displayName, status, verif, lastSignOutTime }
+  user: {
+    uid,
+    photoURL,
+    displayName,
+    status,
+    verif,
+    lastSignOutTime,
+    content,
+    createdAt,
+    whoId
+  }
 }) => {
   return (
     <Box className={style.item}>
       <Box
         display="flex"
         alignItems="center"
+        flexWrap="wrap"
         className={style.link}
         activeClassName={style.linkActive}
         component={NavLink}
-        to={`/dialog/${id}`}
+        to={`/dialog/${uid}`}
       >
         {status ? (
           <BadgeAvatars src={photoURL} />
@@ -25,6 +36,11 @@ const UsersListItem = ({
           <ImageAvatars src={photoURL} />
         )}
         <div className={style.info}>
+          {createdAt && (
+            <span className={style.createdAt}>
+              {convertDate(createdAt.seconds, true)}
+            </span>
+          )}
           <div className={style.name}>
             <span>{displayName}</span>
             {verif && (
@@ -34,7 +50,10 @@ const UsersListItem = ({
             )}
           </div>
           <div className={style.text__preview}>
-            {status
+            {whoId && 'Вы: '}
+            {content
+              ? content
+              : status
               ? "В сети"
               : lastSignOutTime.seconds &&
                 `Был(а) в сети ${convertDate(lastSignOutTime.seconds)}`}
@@ -47,7 +66,7 @@ const UsersListItem = ({
 
 const UsersList = ({ usersList }) => {
   const users = usersList.map(user => (
-    <UsersListItem key={user.id} user={user} />
+    <UsersListItem key={user.uid} user={user} />
   ));
   return <div className={style.root}>{users}</div>;
 };

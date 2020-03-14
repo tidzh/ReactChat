@@ -14,7 +14,7 @@ export const getTimestamp = () => {
   return firebase.firestore.Timestamp.fromDate(new Date());
 };
 
-export const convertDate = value => {
+export const convertDate = (value, shortData = false) => {
   const time = new Date(value * 1000).toLocaleTimeString([], {
     hour: "2-digit",
     minute: "2-digit"
@@ -23,16 +23,30 @@ export const convertDate = value => {
     month: "long",
     day: "numeric"
   });
-  return `${date} в ${time}`;
+  if (!shortData) {
+    return `${date} в ${time}`;
+  } else {
+    const isTodayCheck = isToday(new Date(value * 1000));
+    return !isTodayCheck ? date : time;
+  }
+};
+const isToday = someDate => {
+  const today = new Date();
+  return (
+    someDate.getDate() === today.getDate() &&
+    someDate.getMonth() === today.getMonth() &&
+    someDate.getFullYear() === today.getFullYear()
+  );
 };
 
-export const getGroupChatId = (fromUid, userRoomID = '') => {
+export const getGroupChatId = (fromUid, userRoomID = "") => {
   if (hashString(fromUid) <= hashString(userRoomID)) {
     return `${fromUid}-${userRoomID}`;
   } else {
     return `${userRoomID}-${fromUid}`;
   }
 };
+export const splitUserId = id => id.split("-");
 
 export const uploadFileRequest = (file, newFileName) => {
   return uploadFileAPI.uploadFile(file, PATH.getAvatar(), newFileName);

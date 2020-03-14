@@ -7,7 +7,7 @@ import { NavLink } from "react-router-dom";
 import { convertDate } from "../../utils/functions-helpers";
 
 const UsersListItem = ({
-  user: { id, photoURL, displayName, status, verif, lastSignOutTime }
+  user: { uid, photoURL, displayName, status, verif, lastSignOutTime }
 }) => {
   return (
     <Box className={style.item}>
@@ -17,7 +17,7 @@ const UsersListItem = ({
         className={style.link}
         activeClassName={style.linkActive}
         component={NavLink}
-        to={`/dialog/${id}`}
+        to={`/dialog/${uid}`}
       >
         {status ? (
           <BadgeAvatars src={photoURL} />
@@ -47,7 +47,7 @@ const UsersListItem = ({
 
 const UsersListDialog = ({ usersList }) => {
   const users = usersList.map(user => (
-    <UsersListItem key={user.id} user={user} />
+    <UsersListItem key={user.uid} user={user} />
   ));
   return <div className={style.root}>{users}</div>;
 };
