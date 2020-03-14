@@ -2,7 +2,8 @@ import {
   FETCHING_IS_USERS,
   FETCHING_DIALOG_IS_USERS,
   SET_ALL_USERS,
-  SET_DIALOG_USERS
+  SET_DIALOG_USERS,
+  UPDATE_LAST_MESSAGE_USER_DIALOG
 } from "../../constants/actions";
 
 const initialState = {
@@ -23,6 +24,15 @@ const Users = (state = initialState, action) => {
       return {
         ...state,
         lastMessage: action.payload
+      };
+    case UPDATE_LAST_MESSAGE_USER_DIALOG:
+      return {
+        ...state,
+        lastMessage: state.lastMessage.map(item =>
+          item.id === action.groupChatId
+            ? { ...item, content: action.payload.content }
+            : item
+        )
       };
     case FETCHING_IS_USERS:
       return { ...state, isFetching: action.fetching };

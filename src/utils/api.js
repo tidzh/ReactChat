@@ -26,7 +26,7 @@ export const usersAPI = {
             const data = doc.data();
             const lastMessages = data.messages[data.messages.length - 1];
             const user = splitUserId(doc.id).filter(item => item !== fromUid);
-            promisesRefs.push({ ...lastMessages, uid: user[0], whoId: lastMessages.uid === fromUid && true });
+            promisesRefs.push({id:doc.id, ...lastMessages, uid: user[0], whoId: lastMessages.uid === fromUid && true });
           }
         });
         return promisesRefs;
