@@ -22,7 +22,8 @@ import { dialogListenerRequest } from "../../redux/actions/listeners";
 
 class DialogContainer extends Component {
   state = {
-    dialogForm: ""
+    dialogForm: "",
+    emojiHide: false
   };
 
   _instanceDialog() {
@@ -64,6 +65,9 @@ class DialogContainer extends Component {
       dialogForm: this.state.dialogForm + emoji
     });
   };
+  emojiTriggerHide = () => {
+    this.setState({ emojiHide: !this.state.emojiHide });
+  };
 
   render() {
     const { userCompanion, dialog, getDialogIsFetching } = this.props;
@@ -75,6 +79,7 @@ class DialogContainer extends Component {
         }}
       >
         <Dialog
+          emojiTriggerHide={this.emojiTriggerHide}
           dialogHistoryUserSection={
             <DialogHeaderUser userCompanion={userCompanion} />
           }
@@ -84,15 +89,20 @@ class DialogContainer extends Component {
               handleChange={this.handleChange}
               dialogValue={this.state.dialogForm}
               getEmoji={this.getEmoji}
+              emojiHide={this.state.emojiHide}
             />
           }
-          dialogPostsSection={
+          dialogHistorySection={
             !getDialogIsFetching ? (
               <div className={style.content}>
                 <ProgressCircular className={style.progressCenter} />
               </div>
             ) : (
-              <DialogHistory dialog={dialog} userCompanion={userCompanion} />
+              <DialogHistory
+                emojiTrigger={this.emojiTrigger}
+                dialog={dialog}
+                userCompanion={userCompanion}
+              />
             )
           }
         />

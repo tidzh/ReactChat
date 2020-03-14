@@ -6,7 +6,7 @@ import { convertDate } from "../../../utils/functions-helpers";
 import { AppContext } from "../../Session/withAuthenticationContext";
 import { useWindowSize } from "../../common/WindowSize/WindowSize";
 
-const DialogHistory = ({ dialog, userCompanion: { photoURL } }) => {
+const DialogHistory = ({ dialog, emojiTrigger, userCompanion: { photoURL } }) => {
   const size = useWindowSize();
   const scrollToBottom = useRef(null);
 
@@ -15,7 +15,6 @@ const DialogHistory = ({ dialog, userCompanion: { photoURL } }) => {
       scrollToBottom.current.scrollTop = scrollToBottom.current.scrollHeight;
     }
   });
-  
   const authed = useContext(AppContext);
   const posts = dialog.map((post, index) => {
     return (

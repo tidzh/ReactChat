@@ -4,15 +4,20 @@ import ChatIcon from "@material-ui/icons/Chat";
 import Box from "@material-ui/core/Box";
 
 export const Dialog = ({
-  dialogPostsSection,
+  dialogHistorySection,
   dialogHistoryUserSection,
-  dialogFormSection
+  dialogFormSection,
+  emojiTriggerHide
 }) => {
   return (
     <>
       {dialogHistoryUserSection}
-      <div className={style.content}>
-        {dialogPostsSection}
+      <div
+        className={style.content}
+        onMouseLeave={emojiTriggerHide}
+        onMouseEnter={emojiTriggerHide}
+      >
+        {dialogHistorySection}
         {dialogFormSection}
       </div>
     </>

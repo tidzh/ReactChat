@@ -17,7 +17,7 @@ export const usersAPI = {
   },
   getUsersDialog(fromUid) {
     return db
-      .collection("chatrooms2")
+      .collection("chatrooms")
       .get()
       .then(querySnapshot => {
         const promisesRefs = [];
@@ -132,7 +132,7 @@ export const dialogAPI = {
   getHistory(userRoomID, fromUid) {
     const groupChatId = getGroupChatId(userRoomID, fromUid);
     return db
-      .collection("chatrooms2")
+      .collection("chatrooms")
       .doc(groupChatId)
       .get()
       .then(res => {
@@ -151,13 +151,13 @@ export const dialogAPI = {
       content: formData,
       createdAt: getTimestamp()
     };
-    db.collection("chatrooms2")
+    db.collection("chatrooms")
       .doc(groupChatId)
       .update({
         messages: firebase.firestore.FieldValue.arrayUnion(newMessage)
       })
       .catch(() => {
-        db.collection("chatrooms2")
+        db.collection("chatrooms")
           .doc(groupChatId)
           .set({ messages: [newMessage] });
       });

@@ -5,7 +5,7 @@ const db = firebase.firestore();
 
 export const dialogListenerRequest = (userRoomID, fromUid) => dispatch => {
   const groupChatId = getGroupChatId(userRoomID, fromUid);
-  db.collection("chatrooms2").onSnapshot(querySnapshot => {
+  db.collection("chatrooms").onSnapshot(querySnapshot => {
     querySnapshot.docChanges().forEach(change => {
       if (change.doc.id === groupChatId) {
         const lastPost = change.doc.data().messages;

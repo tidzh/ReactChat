@@ -7,20 +7,29 @@ import MicNoneIcon from "@material-ui/icons/MicNone";
 import { Form } from "../../common/Form/Form";
 import classes from "classnames";
 import Emoji from "../../common/Emoji/Emoji";
-const DialogForm = ({ onSubmit, handleChange, dialogValue, getEmoji }) => {
-  const [smileToggle, setSmileToggle] = useState(false);
-  const smileTrigger = () => {
+const DialogForm = ({
+  onSubmit,
+  handleChange,
+  dialogValue,
+  getEmoji,
+  emojiHide
+}) => {
+  const [smileToggle, setSmileToggle] = useState(null);
+  const smileTriggerHandler = () => {
     setSmileToggle(!smileToggle);
   };
   const addEmoji = emoji => {
     setSmileToggle(!smileToggle);
     getEmoji(emoji.native);
   };
+  if (!emojiHide && smileToggle) {
+    setSmileToggle(false);
+  }
   return (
     <div className={style.root}>
       <div className={style.wrap}>
         {smileToggle && (
-          <div className={style.smile} onMouseLeave={smileTrigger}>
+          <div className={style.smile}>
             <Emoji addEmoji={addEmoji} />
           </div>
         )}
@@ -28,7 +37,7 @@ const DialogForm = ({ onSubmit, handleChange, dialogValue, getEmoji }) => {
           className={classes(style.smileTrigger, {
             [`${style.smileTriggerActive}`]: smileToggle
           })}
-          onClick={smileTrigger}
+          onClick={smileTriggerHandler}
         />
         <Form onSubmit={onSubmit} className={style.form}>
           <input

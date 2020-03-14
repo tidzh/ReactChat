@@ -6,7 +6,12 @@ import FaceIcon from "@material-ui/icons/Face";
 import QuestionAnswerOutlinedIcon from "@material-ui/icons/QuestionAnswerOutlined";
 import classes from "classnames";
 
-const Toolbar = ({ signOut, toolbarActiveTrigger, toggleToolbarActive }) => {
+const Toolbar = ({
+  signOut,
+  toolbarActiveTrigger,
+  toggleToolbarActive,
+  countUserDialogs
+}) => {
   return (
     <div className={style.root}>
       <div className={style.item}>
@@ -17,14 +22,16 @@ const Toolbar = ({ signOut, toolbarActiveTrigger, toggleToolbarActive }) => {
           })}
         />
       </div>
-      <div className={style.item}>
-        <QuestionAnswerOutlinedIcon
-          onClick={() => toolbarActiveTrigger("userDialog")}
-          className={classes({
-            [`${style.active}`]: toggleToolbarActive === "userDialog"
-          })}
-        />
-      </div>
+      {countUserDialogs.length > 0 && (
+        <div className={style.item}>
+          <QuestionAnswerOutlinedIcon
+            onClick={() => toolbarActiveTrigger("userDialog")}
+            className={classes({
+              [`${style.active}`]: toggleToolbarActive === "userDialog"
+            })}
+          />
+        </div>
+      )}
       <div className={style.item}>
         <SettingsIcon
           onClick={() => toolbarActiveTrigger("userSettings")}

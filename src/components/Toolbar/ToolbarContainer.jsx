@@ -3,6 +3,7 @@ import Toolbar from "./Toolbar";
 import { connect } from "react-redux";
 import { signOutUserRequest } from "../../redux/actions/auth";
 import { getAuthUserId } from "../../redux/selectors/auth";
+import {getLastMessagesUsers} from "../../redux/selectors/users";
 
 class ToolbarContainer extends Component {
   handlerSignOut = () => {
@@ -10,19 +11,21 @@ class ToolbarContainer extends Component {
   };
 
   render() {
-    const { toolbarActiveTrigger, toggleToolbarActive } = this.props;
+    const { toolbarActiveTrigger, toggleToolbarActive, countUserDialogs } = this.props;
     return (
       <Toolbar
         signOut={this.handlerSignOut}
         toolbarActiveTrigger={toolbarActiveTrigger}
         toggleToolbarActive={toggleToolbarActive}
+        countUserDialogs={countUserDialogs}
       />
     );
   }
 }
 const matStateToProps = state => {
   return {
-    authUserId: getAuthUserId(state)
+    authUserId: getAuthUserId(state),
+    countUserDialogs:getLastMessagesUsers(state),
   };
 };
 
