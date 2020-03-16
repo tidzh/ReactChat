@@ -22,7 +22,10 @@ export const getUsersListDialogs = createSelector(
   (users, messages) => {
     return messages.map(message => {
       const person = users.find(({ uid }) => message.uid === uid);
-      return { ...person, ...message};
+      return { ...person, ...message };
     });
   }
 );
+export const usersDialogsCount = createSelector(getLastMessagesUsers, users => {
+  return users.length;
+});

@@ -30,12 +30,12 @@ export const setUser = (payload, isFetching) => ({
   isFetching
 });
 
-export const getUsersRequest = (fromUid) => async dispatch => {
-  const payload = await usersAPI.getAllUsers(fromUid);
+export const getAllUsersRequest = () => async dispatch => {
+  const payload = await usersAPI.getAllUsers();
   dispatch(setAllUsers(payload));
   dispatch(isFetchingUsers(true));
 };
-export const getUsersDialogRequest = fromUid => async dispatch => {
+export const getUsersDialogRequest = (fromUid) => async dispatch => {
   const payload = await usersAPI.getUsersDialog(fromUid);
   dispatch(setDialogUsers(payload));
   dispatch(isFetchingDialogUsers(true));

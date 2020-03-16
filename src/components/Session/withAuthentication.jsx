@@ -4,11 +4,13 @@ import { checkSessionRequest } from "../../redux/actions/auth";
 import { getIsAuthorized, getProfileData } from "../../redux/selectors/auth";
 import { AppContext } from "./withAuthenticationContext";
 import { ProgressLine } from "../common/Progress/Progress";
+import { usersDialogsCount } from "../../redux/selectors/users";
 
 const mapStateToProps = state => {
   return {
     isAuthorized: getIsAuthorized(state),
-    profileData: getProfileData(state)
+    profileData: getProfileData(state),
+    usersDialogsCount: usersDialogsCount(state)
   };
 };
 
@@ -22,15 +24,19 @@ const withAuthentication = Component => {
         this.props.checkSessionRequest();
       }
     }
+    componentWillUnmount() {
+      this.props.checkSessionRequest();
+    }
     render() {
-      const { isAuthorized, profileData } = this.props;
+      const { isAuthorized, profileData, usersDialogsCount } = this.props;
       if (isAuthorized === null) {
         return <ProgressLine />;
       }
-      
+
       const globalContext = {
         isAuthorized: isAuthorized,
-        profileData: profileData
+        profileData: profileData,
+        usersDialogsCount: usersDialogsCount
       };
       return (
         <AppContext.Provider value={globalContext}>
@@ -39,6 +45,8 @@ const withAuthentication = Component => {
       );
     }
   }
-  return connect(mapStateToProps, { checkSessionRequest })(WithAuthenticationComponent);
+  return connect(mapStateToProps, { checkSessionRequest })(
+    WithAuthenticationComponent
+  );
 };
 export default withAuthentication;

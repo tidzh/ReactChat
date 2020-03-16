@@ -8,15 +8,18 @@ import {
   getUsersListDialogs
 } from "../../redux/selectors/users";
 import {
-  getUsersDialogRequest,
-  getUsersRequest
+  getAllUsersRequest,
+  getUsersDialogRequest
 } from "../../redux/actions/users";
 import { ProgressCircular } from "../common/Progress/Progress";
-import { getAuthUserId } from "../../redux/selectors/auth";
 
 class UsersListContainer extends Component {
   componentDidMount() {
-    this.props.getUsersRequest(this.props.fromUid);
+    this.props.getAllUsersRequest();
+    this.props.getUsersDialogRequest(this.props.fromUid);
+  }
+  componentWillUnmount() {
+    this.props.getAllUsersRequest();
     this.props.getUsersDialogRequest(this.props.fromUid);
   }
   render() {
@@ -25,9 +28,10 @@ class UsersListContainer extends Component {
       isFetching,
       isFetchingDialogUser,
       usersListDialogs,
-      userListType
+      userListType,
     } = this.props;
-    if (!isFetching && !isFetchingDialogUser) return <ProgressCircular />;
+    if (!isFetching && !isFetchingDialogUser)
+      return <ProgressCircular />;
     return (
       <UsersList
         usersList={userListType === "userDialog" ? usersListDialogs : usersList}
@@ -38,7 +42,6 @@ class UsersListContainer extends Component {
 
 const mapStateToProps = state => {
   return {
-    fromUid: getAuthUserId(state),
     usersList: getCurrentUsers(state),
     usersListDialogs: getUsersListDialogs(state),
     isFetching: getIsFetching(state),
@@ -46,6 +49,6 @@ const mapStateToProps = state => {
   };
 };
 export default connect(mapStateToProps, {
-  getUsersRequest,
+  getAllUsersRequest,
   getUsersDialogRequest
 })(UsersListContainer);

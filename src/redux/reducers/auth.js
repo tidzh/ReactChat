@@ -6,7 +6,7 @@ import {
 } from "../../constants/actions";
 
 const initialState = {
-  profile: {},
+  authorizedUser: {},
   isRegistered: false,
   isAuthorized: null,
   isFetching: false
@@ -18,18 +18,18 @@ const Auth = (state = initialState, action) => {
       const { email, uid } = action.payload;
       return {
         ...state,
-        profile: { ...state.profile, email, uid },
+        authorizedUser: { ...state.authorizedUser, email, uid },
         isRegistered: true
       };
     case SET_USER_INFO:
-      return { ...state, profile: { ...action.payload } };
+      return { ...state, authorizedUser: { ...action.payload } };
     case SET_SESSION: {
       return { ...state, isAuthorized: action.flag };
     }
     case UPDATE_USER_AVATAR: {
       return {
         ...state,
-        profile: { ...state.profile, photoURL: action.photoURL }
+        authorizedUser: { ...state.authorizedUser, photoURL: action.photoURL }
       };
     }
     default:

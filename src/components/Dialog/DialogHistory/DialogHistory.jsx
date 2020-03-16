@@ -6,7 +6,7 @@ import { convertDate } from "../../../utils/functions-helpers";
 import { AppContext } from "../../Session/withAuthenticationContext";
 import { useWindowSize } from "../../common/WindowSize/WindowSize";
 
-const DialogHistory = ({ dialog, emojiTrigger, userCompanion: { photoURL } }) => {
+const DialogHistory = ({ dialog, userCompanion: { photoURL } }) => {
   const size = useWindowSize();
   const scrollToBottom = useRef(null);
 

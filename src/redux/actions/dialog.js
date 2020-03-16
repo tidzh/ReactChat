@@ -14,10 +14,11 @@ export const dialogIsFetching = fetching => ({
   type: HISTORY_IS_FETCHING,
   fetching
 });
-export const updateLastMessageUserDialog = (payload, groupChatId) => ({
+export const updateLastMessageUserDialog = (payload, userRoomID, fromUid) => ({
   type: UPDATE_LAST_MESSAGE_USER_DIALOG,
   payload,
-  groupChatId
+  userRoomID,
+  fromUid
 });
 
 export const addNewMessageRequest = (
@@ -27,7 +28,7 @@ export const addNewMessageRequest = (
 ) => async dispatch => {
   const payload = await dialogAPI.addNewMessage(formData, userRoomID, fromUid);
   const groupChatId = getGroupChatId(userRoomID, fromUid);
-  dispatch(updateLastMessageUserDialog(payload, groupChatId));
+  dispatch(updateLastMessageUserDialog(payload, userRoomID, fromUid));
   dispatch(setDialog(payload, groupChatId));
   dispatch(reset("dialog"));
 };

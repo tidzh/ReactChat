@@ -47,6 +47,9 @@ class DialogContainer extends Component {
       this._instanceDialog();
     }
   }
+  componentWillUnmount() {
+    this._instanceDialog();
+  }
 
   onSubmit = evt => {
     evt.preventDefault();

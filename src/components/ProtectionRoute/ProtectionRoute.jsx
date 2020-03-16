@@ -4,12 +4,12 @@ import { HOME, SIGN_IN } from "../../constants/routes";
 import { AppContext } from "../Session/withAuthenticationContext";
 
 export const PublicRoute = ({ component: Component, restricted, ...rest }) => {
-  const authed = useContext(AppContext);
+  const globalContext = useContext(AppContext);
   return (
     <Route
       {...rest}
       render={props =>
-        authed.isAuthorized && restricted ? (
+        globalContext.isAuthorized && restricted ? (
           <Redirect to={HOME} />
         ) : (
           <Component {...props} />
@@ -19,12 +19,12 @@ export const PublicRoute = ({ component: Component, restricted, ...rest }) => {
   );
 };
 export const PrivateRoute = ({ component: Component, ...rest }) => {
-  const authed = useContext(AppContext);
+  const globalContext = useContext(AppContext);
   return (
     <Route
       {...rest}
       render={props =>
-        authed.isAuthorized ? (
+        globalContext.isAuthorized ? (
           <Component {...props} />
         ) : (
           <Redirect to={SIGN_IN} />

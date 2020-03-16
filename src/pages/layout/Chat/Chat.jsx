@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import style from "../../HomePage/HomePage.module.scss";
 import Container from "@material-ui/core/Container";
 import Aside from "../../../components/Aside/Aside";
@@ -7,22 +7,40 @@ import UsersListContainer from "../../../components/UsersList/UsersListContainer
 import Profile from "../../../components/Profile/Profile";
 import ToolbarContainer from "../../../components/Toolbar/ToolbarContainer";
 import { Helmet } from "react-helmet";
+import { AppContext } from "../../../components/Session/withAuthenticationContext";
 
 const Chat = ({
   children,
   pageMeta: { title = "", description = "" } = ""
 }) => {
-  const [toggleToolbarActive, setToggleToolbarActive] = useState("userDialog");
+  const context = useContext(AppContext);
+  const [toggleToolbarActive, setToggleToolbarActive] = useState(null);
   const handlerToggleSettings = activeElement => {
     setToggleToolbarActive(activeElement);
   };
 
+  useEffect(() => {
+    if (context.usersDialogsCount === 0) {
+      setToggleToolbarActive("userList");
+    } else {
+      setToggleToolbarActive("userDialog");
+    }
+  }, [context.usersDialogsCount]);
+
+  if (Object.keys(context.profileData).length === 0) {
+    return false;
+  }
+
   const toolbarActive = toggleToolbarActive => {
-    switch (toggleToolbarActive) {
-      case "userSettings":
-        return <Profile />;
-      default:
-        return <UsersListContainer userListType={toggleToolbarActive} />;
+    if (toggleToolbarActive === "userSettings") {
+      return <Profile />;
+    } else {
+      return (
+        <UsersListContainer
+          fromUid={context.profileData.id}
+          userListType={toggleToolbarActive}
+        />
+      );
     }
   };
   return (

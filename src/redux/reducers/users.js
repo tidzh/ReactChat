@@ -5,6 +5,7 @@ import {
   SET_DIALOG_USERS,
   UPDATE_LAST_MESSAGE_USER_DIALOG
 } from "../../constants/actions";
+import { getGroupChatId } from "../../utils/functions-helpers";
 
 const initialState = {
   usersList: [],
@@ -26,13 +27,25 @@ const Users = (state = initialState, action) => {
         lastMessage: action.payload
       };
     case UPDATE_LAST_MESSAGE_USER_DIALOG:
+      const groupChatId = getGroupChatId(action.userRoomID, action.fromUid);
+      const check = state.lastMessage.some(item => item.id === groupChatId);
       return {
         ...state,
-        lastMessage: state.lastMessage.map(item =>
-          item.id === action.groupChatId
-            ? { ...item, content: action.payload.content }
-            : item
-        )
+        lastMessage: !check
+          ? [
+              ...state.lastMessage,
+              {
+                ...action.payload,
+                uid: action.userRoomID,
+                id: groupChatId,
+                whoId: true
+              }
+            ]
+          : state.lastMessage.map(item => {
+              return item.id === groupChatId
+                ? { ...item, content: action.payload.content, whoId: true }
+                : item;
+            })
       };
     case FETCHING_IS_USERS:
       return { ...state, isFetching: action.fetching };
